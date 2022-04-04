@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Routes, Route } from "react-router-dom";
+import {Container} from "react-bootstrap";
+import {WrappedSignIn} from './SignIn';
+import {Welcome} from "./Welcome";
+import {GamesList} from "./GamesList";
+import {WrappedGameDetails} from "./GameDetails";
+import {WrappedSignUp} from "./SignUp";
+import {Jokes} from "./Jokes";
+import {WrappedGameThreads} from "./GameThreads";
+import {Threads} from "./Threads";
+
+
+class App extends React.Component {
+
+  render() {
+    return(
+
+      <Container>
+        <Routes>
+            <Route path="/" element={<Welcome/>} />
+            <Route path="/signin" element={<WrappedSignIn/>} />
+            <Route path="/signup" element={<WrappedSignUp/>} />
+            <Route path="/games" element={<GamesList/>} />
+            <Route path="/games/:gameId/details" element={<WrappedGameDetails/>} />
+            <Route path="/threads" element={<Threads/>} />
+            {/*<Route path="/games/:threadId/details" element={<WrappedThreadDetails/>} />*/}
+            {/*<Route path="/games/:gameId/threads" element={<WrappedGameThreads/>} />*/}
+            <Route path="/jokes" element={<Jokes/>} />
+            {/*<Route path="/game_threads/:game_tag" element={<Threads/>} />*/}
+            {/*<Route path="/game_threads/:thread_id" element={<WrappedThread/>} />*/}
+
+
+            {/*<Route path="/signup" element={<WrappedLogin />} />*/}
+
+            {/*<Route path="/user_profile" element={<WrappedUserProfile />} />*/}
+        </Routes>
+      </Container>
+
+    )
+  }
+
 }
 
 export default App;
