@@ -56,7 +56,7 @@ export class GamesList extends React.Component {
                     variant="top" src={game.picture_url} alt={game.name + ' image'}
                     style={{display: 'inline-block', width: 120, height: 160,
                             cursor: 'pointer', marginLeft: 60, marginTop: 10}}
-                    onClick={() => window.location.href = `games/${game.id}/details`}/>
+                    onClick={() => window.location.href = `games/${game.id}`}/>
                 <Card.Body>
                     <Card.Title>{game.name}</Card.Title>
                     <Card.Text>{game.description}</Card.Text>

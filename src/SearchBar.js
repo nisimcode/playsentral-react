@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {GameDetails} from "./GameDetails";
+import {Game} from "./Game";
 import {Button, Form, FormControl} from "react-bootstrap";
 
 export class SearchBar extends React.Component {

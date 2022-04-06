@@ -7,7 +7,7 @@ import {Container} from "react-bootstrap";
 import {WrappedSignIn} from './SignIn';
 import {Welcome} from "./Welcome";
 import {GamesList} from "./GamesList";
-import {WrappedGameDetails} from "./GameDetails";
+import {WrappedGame, WrappedGameDetails} from "./Game";
 import {WrappedSignUp} from "./SignUp";
 import {Jokes} from "./Jokes";
 import {WrappedGameThreads} from "./GameThreads";
@@ -25,7 +25,7 @@ class App extends React.Component {
             <Route path="/signin" element={<WrappedSignIn/>} />
             <Route path="/signup" element={<WrappedSignUp/>} />
             <Route path="/games" element={<GamesList/>} />
-            <Route path="/games/:gameId/details" element={<WrappedGameDetails/>} />
+            <Route path="/games/:gameId" element={<WrappedGame/>} />
             <Route path="/threads" element={<Threads/>} />
             {/*<Route path="/games/:threadId/details" element={<WrappedThreadDetails/>} />*/}
             {/*<Route path="/games/:gameId/threads" element={<WrappedGameThreads/>} />*/}

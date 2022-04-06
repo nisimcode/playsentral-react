@@ -6,7 +6,7 @@ import { Header } from './Header';
 import {getHeader, GAMES_URL, JOKES_URL} from './request_utils';
 import ReactPaginate from "react-paginate";
 import { clone, cloneDeep } from "lodash"
-import {GameDetails} from "./GameDetails";
+import {Game} from "./Game";
 
 export class Jokes extends React.Component {
 

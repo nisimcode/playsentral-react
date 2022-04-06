@@ -47,8 +47,8 @@
   list-style: none;
   outline: none;
   position: absolute;
-  bottom: 40px;
-  left: 110px
+  bottom: 0;
+
 }
 .pagination > .active > a{
   background-color: #47ccde ;
