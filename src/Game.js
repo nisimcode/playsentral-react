@@ -8,7 +8,8 @@ import {Header} from "./Header";
 import {GameDetails, WrappedGameDetails} from "./GameDetails";
 import Button from "react-bootstrap/Button";
 import ReactPaginate from "react-paginate";
-import {GameThreads, WrappedGameThreads} from "./GameThreads";
+import {GamePosts} from "./GamePosts";
+import {GameRating} from "./GameRating";
 
 
 export class Game extends React.Component {
@@ -95,83 +96,15 @@ export class Game extends React.Component {
         <>
             <Header />
             <div style={{display: 'inline-flex'}}>
-            <GameDetails game={this.state.game} />
+                <div style={{display: 'inline-flex', flexDirection: "column"}}>
+                <GameDetails game={this.state.game}/>
+                    <br/>
+                <GameRating gameId={this.props.gameId}/>
+                </div>
             &emsp;&emsp;
-            <GameThreads gameId={this.props.gameId} />
+            <GamePosts gameId={this.props.gameId} />
             </div>
-            {/*<Container style={{display: "flex"}}>*/}
-            {/*    <div>*/}
-            {/*        <img src={game.picture_url} alt={game.name + ' image'} height={450} />*/}
-            {/*    </div>*/}
-            {/*    &emsp;&emsp;&emsp;*/}
-            {/*    <div>*/}
-            {/*        <h3>Details</h3>*/}
-            {/*        <ListGroup as="ul" >*/}
-            {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-            {/*                <div className="ms-2 me-auto">*/}
-            {/*                    <div className="fw-bold">Name</div>*/}
-            {/*                    {game.name}*/}
-            {/*                </div>*/}
-            {/*            </ListGroup.Item>*/}
-            {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-            {/*                <div className="ms-2 me-auto">*/}
-            {/*                    <div className="fw-bold">Publisher</div>*/}
-            {/*                    {game.publisher}*/}
-            {/*                </div>*/}
-            {/*            </ListGroup.Item>*/}
-            {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-            {/*                <div className="ms-2 me-auto">*/}
-            {/*                    <div className="fw-bold">Developer</div>*/}
-            {/*                    {game.developer}*/}
-            {/*                </div>*/}
-            {/*            </ListGroup.Item>*/}
-            {/*            { game.series !== "" &&*/}
-            {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-            {/*                <div className="ms-2 me-auto">*/}
-            {/*                    <div className="fw-bold">Series</div>*/}
-            {/*                      {game.series}*/}
-            {/*                </div>*/}
-            {/*            </ListGroup.Item>}*/}
-            {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-            {/*                <div className="ms-2 me-auto">*/}
-            {/*                      <div className="fw-bold">Release Year</div>*/}
-            {/*                      {game.release_year}*/}
-            {/*                </div>*/}
-            {/*            </ListGroup.Item>*/}
-            {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-            {/*                <div className="ms-2 me-auto">*/}
-            {/*                    <div className="fw-bold">Genre</div>*/}
-            {/*                    {game.genre}*/}
-            {/*                </div>*/}
-            {/*            </ListGroup.Item>*/}
-            {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-            {/*                <div className="ms-2 me-auto">*/}
-            {/*                    <div className="fw-bold">Average Rating</div>*/}
-            {/*                    {game.avg_rating ? game.avg_rating : 'N/A'}*/}
-            {/*                </div>*/}
-            {/*            </ListGroup.Item>*/}
-            {/*        </ListGroup>*/}
-            {/*    </div>*/}
-            {/*    &emsp;&emsp;&emsp;*/}
-            {/*    <div>*/}
-            {/*        <h3>Threads</h3>*/}
-            {/*        {this.state.postData}*/}
-            {/*        {this.state.threads.length > 0 &&*/}
-            {/*        <ReactPaginate*/}
-            {/*            previousLabel={"prev"}*/}
-            {/*            nextLabel={"next"}*/}
-            {/*            breakLabel={"..."}*/}
-            {/*            breakClassName={"break-me"}*/}
-            {/*            pageCount={this.state.pageCount}*/}
-            {/*            marginPagesDisplayed={2}*/}
-            {/*            pageRangeDisplayed={5}*/}
-            {/*            onPageChange={this.handlePageClick}*/}
-            {/*            containerClassName={"pagination"}*/}
-            {/*            subContainerClassName={"pages pagination"}*/}
-            {/*            activeClassName={"active"}/>}*/}
-            {/*     </div>*/}
-            {/*</Container>*/}
-        </>
+                   </>
       )
     }
   }
@@ -181,3 +114,77 @@ export const WrappedGame = props => {
     const navigate = useNavigate()
     return <Game gameId={gameId} navigate={navigate} {...props} />
 }
+
+            // {/*<Container style={{display: "flex"}}>*/}
+            // {/*    <div>*/}
+            // {/*        <img src={game.picture_url} alt={game.name + ' image'} height={450} />*/}
+            // {/*    </div>*/}
+            // {/*    &emsp;&emsp;&emsp;*/}
+            // {/*    <div>*/}
+            // {/*        <h3>Details</h3>*/}
+            // {/*        <ListGroup as="ul" >*/}
+            // {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
+            // {/*                <div className="ms-2 me-auto">*/}
+            // {/*                    <div className="fw-bold">Name</div>*/}
+            // {/*                    {game.name}*/}
+            // {/*                </div>*/}
+            // {/*            </ListGroup.Item>*/}
+            // {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
+            // {/*                <div className="ms-2 me-auto">*/}
+            // {/*                    <div className="fw-bold">Publisher</div>*/}
+            // {/*                    {game.publisher}*/}
+            // {/*                </div>*/}
+            // {/*            </ListGroup.Item>*/}
+            // {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
+            // {/*                <div className="ms-2 me-auto">*/}
+            // {/*                    <div className="fw-bold">Developer</div>*/}
+            // {/*                    {game.developer}*/}
+            // {/*                </div>*/}
+            // {/*            </ListGroup.Item>*/}
+            // {/*            { game.series !== "" &&*/}
+            // {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
+            // {/*                <div className="ms-2 me-auto">*/}
+            // {/*                    <div className="fw-bold">Series</div>*/}
+            // {/*                      {game.series}*/}
+            // {/*                </div>*/}
+            // {/*            </ListGroup.Item>}*/}
+            // {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
+            // {/*                <div className="ms-2 me-auto">*/}
+            // {/*                      <div className="fw-bold">Release Year</div>*/}
+            // {/*                      {game.release_year}*/}
+            // {/*                </div>*/}
+            // {/*            </ListGroup.Item>*/}
+            // {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
+            // {/*                <div className="ms-2 me-auto">*/}
+            // {/*                    <div className="fw-bold">Genre</div>*/}
+            // {/*                    {game.genre}*/}
+            // {/*                </div>*/}
+            // {/*            </ListGroup.Item>*/}
+            // {/*            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
+            // {/*                <div className="ms-2 me-auto">*/}
+            // {/*                    <div className="fw-bold">Average Rating</div>*/}
+            // {/*                    {game.avg_rating ? game.avg_rating : 'N/A'}*/}
+            // {/*                </div>*/}
+            // {/*            </ListGroup.Item>*/}
+            // {/*        </ListGroup>*/}
+            // {/*    </div>*/}
+            // {/*    &emsp;&emsp;&emsp;*/}
+            // {/*    <div>*/}
+            // {/*        <h3>Posts</h3>*/}
+            // {/*        {this.state.postData}*/}
+            // {/*        {this.state.threads.length > 0 &&*/}
+            // {/*        <ReactPaginate*/}
+            // {/*            previousLabel={"prev"}*/}
+            // {/*            nextLabel={"next"}*/}
+            // {/*            breakLabel={"..."}*/}
+            // {/*            breakClassName={"break-me"}*/}
+            // {/*            pageCount={this.state.pageCount}*/}
+            // {/*            marginPagesDisplayed={2}*/}
+            // {/*            pageRangeDisplayed={5}*/}
+            // {/*            onPageChange={this.handlePageClick}*/}
+            // {/*            containerClassName={"pagination"}*/}
+            // {/*            subContainerClassName={"pages pagination"}*/}
+            // {/*            activeClassName={"active"}/>}*/}
+            // {/*     </div>*/}
+            // {/*</Container>*/}
+

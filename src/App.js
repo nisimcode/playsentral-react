@@ -10,8 +10,8 @@ import {GamesList} from "./GamesList";
 import {WrappedGame, WrappedGameDetails} from "./Game";
 import {WrappedSignUp} from "./SignUp";
 import {Jokes} from "./Jokes";
-import {WrappedGameThreads} from "./GameThreads";
-import {Threads} from "./Threads";
+import {WrappedGameThreads} from "./GamePosts";
+import {Posts} from "./Posts";
 
 
 class App extends React.Component {
@@ -26,11 +26,11 @@ class App extends React.Component {
             <Route path="/signup" element={<WrappedSignUp/>} />
             <Route path="/games" element={<GamesList/>} />
             <Route path="/games/:gameId" element={<WrappedGame/>} />
-            <Route path="/threads" element={<Threads/>} />
+            {/*<Route path="/posts" element={<Posts/>} />*/}
             {/*<Route path="/games/:threadId/details" element={<WrappedThreadDetails/>} />*/}
             {/*<Route path="/games/:gameId/threads" element={<WrappedGameThreads/>} />*/}
             <Route path="/jokes" element={<Jokes/>} />
-            {/*<Route path="/game_threads/:game_tag" element={<Threads/>} />*/}
+            {/*<Route path="/game_threads/:game_tag" element={<Posts/>} />*/}
             {/*<Route path="/game_threads/:thread_id" element={<WrappedThread/>} />*/}
 
 

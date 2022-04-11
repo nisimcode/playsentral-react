@@ -43,28 +43,37 @@ export class Jokes extends React.Component {
              <>
             <Header />
             <Container>
-            { this.state.joke.setup &&
-            <h4>{this.state.joke.setup}</h4> }
+
+            { this.state.joke.type === 'single' &&
+            <h5>{this.state.joke.joke}  &emsp;
+                <img src={'joke.png'} alt={'laughing emoticon'} width={50}/></h5>}
+                <br/>
+           { this.state.joke.type === 'single' &&
+             <Button variant="success" type="button" onClick={() => this.getJoke()}>
+                 Get another joke
+            </Button>}
+
+            { this.state.joke.type === 'twopart' &&
+            <h5>{this.state.joke.setup}</h5>}
                  <br/>
-             { this.state.joke.setup &&
+            { this.state.joke.type === 'twopart' &&
              <Button variant="outline-dark" type="button" size="sm" onClick={() => this.setState({hidden: !this.state.hidden})}>
                  {this.state.hidden ? 'Reveal punchline' : 'Hide punchline'}
             </Button> }
                  <br/><br/>
-            <h4 hidden={this.state.hidden}>{this.state.joke.delivery}
+            <h5 hidden={this.state.hidden}>{this.state.joke.delivery}
                 &emsp;
                 <img src={'joke.png'} alt={'laughing emoticon'} width={50}/>
-            </h4>
+            </h5>
                  <br/>
             <Button hidden={this.state.hidden} variant="success" type="button" onClick={() => this.getJoke()}>
-                 Want another joke?
+                 Get another joke
             </Button>
+            { this.state.joke.type === 'twopart' &&
             <Button hidden={this.state.joke.setup} variant="danger" type="button" onClick={() => this.getJoke()}>
-                 Oopsie! Let's try again...
-            </Button>
+                 Couldn't get a joke!<br/>Try again...
+            </Button>}
             </Container>
-
-
         </>
         )
     }

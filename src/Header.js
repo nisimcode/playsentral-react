@@ -58,7 +58,7 @@ export class Header extends React.Component {
               <Navbar.Toggle />
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/games">Games</Nav.Link>
-              {/*<Nav.Link href="/threads">Threads</Nav.Link>*/}
+              {/*<Nav.Link href="/threads">Posts</Nav.Link>*/}
               <Nav.Link href="/jokes">Random Joke</Nav.Link>
               <Navbar.Collapse className="justify-content-end">
                   { this.state.logged_in &&
