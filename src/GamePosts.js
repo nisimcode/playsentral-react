@@ -13,6 +13,7 @@ export class GamePosts extends React.Component {
        super(props)
        this.state = {
            posts: [],
+           username: '',
            offset: 0,
            perPage: 5,
            currentPage: 0,
@@ -32,7 +33,8 @@ export class GamePosts extends React.Component {
             if (response.status !== 200) {
                 console.log('failed getting posts');
             } else {
-                this.setState({posts: response.data})
+
+                this.setState({posts: response.data, username: window.localStorage.getItem('username')})
                 console.log(this.state.posts)
                 const slice = this.state.posts.slice(this.state.offset, this.state.offset + this.state.perPage)
                 const postData = slice.map(post =>
@@ -41,21 +43,23 @@ export class GamePosts extends React.Component {
                         as="li" className="d-flex justify-content-between align-items-start" style={{width: '500px'}}>
                         {/*onClick={() => window.location.href = `${this.props.gameId}/posts/${post.id}/details`}>*/}
                        <div className="ms-2 me-auto">
-                            <div className="fw-bold">{post.text}</div>
+                            <div className="fw-bold">{post.text} </div>
                             {/*{post.game}*/}
                             <div style={{fontStyle: "italic"}}>{post.user}</div>
-                           {post.user.id === this.state.posts.user &&
-                            <Button variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
-                                onClick={() => {this.setState({showPostModal: true, currPostId: post.id, text: post.text})}}>
-                                Edit
-                            </Button>}
-                            &ensp;
-                            {post.user.id === this.state.posts.user &&
                             <Button
                                 variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
+                                hidden={post.user!== this.state.username}
+                                onClick={() => {this.setState
+                                            ({showPostModal: true, currPostId: post.id, text: post.text})}}>
+                                Edit
+                            </Button>
+                            &ensp;
+                            <Button
+                                variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
+                                hidden={post.user !== this.state.username}
                                 onClick={() => this.handleDeletePost(post.id)}>
                                 Delete
-                            </Button>}
+                            </Button>
                         </div>
                     </ListGroup.Item>
                 </React.Fragment>
@@ -108,7 +112,6 @@ export class GamePosts extends React.Component {
                 console.log(error.toJSON())
             })
             console.log(this.state.posts)
-            this.getPosts()
             // this.setState({currPostId: '', text: ''})
     }
 

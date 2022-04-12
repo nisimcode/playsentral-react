@@ -13,7 +13,7 @@ export class GameDetails extends React.Component {
 
                 <div>
                     <h1 style={{fontStyle: 'italic'}}>{this.props.game.name}</h1>
-                    <img src={this.props.game.picture_url} alt={this.props.game.name + ' image'} height={400} />
+                    <img src={this.props.game.picture_url} alt={this.props.game.name + ' image'} height={350} />
                      {/*<Button*/}
                      {/*   variant={'primary'} size={'lg'} style={{width: '60px', height: '30px'}}*/}
                      {/*   onClick={() => this.handleRateGame()}>*/}

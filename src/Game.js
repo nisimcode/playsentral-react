@@ -102,9 +102,9 @@ export class Game extends React.Component {
                 <GameRating gameId={this.props.gameId}/>
                 </div>
             &emsp;&emsp;
-            <GamePosts gameId={this.props.gameId} />
+            <GamePosts gameId={this.props.gameId} gameData={this.props.gameData} />
             </div>
-                   </>
+       </>
       )
     }
   }

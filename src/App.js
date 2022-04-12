@@ -26,10 +26,11 @@ class App extends React.Component {
             <Route path="/signup" element={<WrappedSignUp/>} />
             <Route path="/games" element={<GamesList/>} />
             <Route path="/games/:gameId" element={<WrappedGame/>} />
+            <Route path="/jokes" element={<Jokes/>} />
+
             {/*<Route path="/posts" element={<Posts/>} />*/}
             {/*<Route path="/games/:threadId/details" element={<WrappedThreadDetails/>} />*/}
             {/*<Route path="/games/:gameId/threads" element={<WrappedGameThreads/>} />*/}
-            <Route path="/jokes" element={<Jokes/>} />
             {/*<Route path="/game_threads/:game_tag" element={<Posts/>} />*/}
             {/*<Route path="/game_threads/:thread_id" element={<WrappedThread/>} />*/}
 

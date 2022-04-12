@@ -14,7 +14,7 @@ export class Header extends React.Component {
 
         this.state = {
             logged_in: false,
-            fullname: "",
+            username: "",
         }
         this.handleSignOut = this.handleSignOut.bind(this)
       }
@@ -25,9 +25,10 @@ export class Header extends React.Component {
           axios.get(CURRENT_USER_URL, getToken())
           .then(response => {
             if (response.status === 200) {
-                console.log("got response for user " + response.data.username)
+                console.log("got response for user " + response.data)
+                localStorage.setItem('username', response.data)
                 this.setState(
-                    {logged_in: true, fullname: `${response.data.first_name} ${response.data.last_name}`})
+                    {logged_in: true, username: response.data})
             } else if (response.status === 401) {
               console.log('401')
             }
@@ -45,6 +46,7 @@ export class Header extends React.Component {
     handleSignOut (event) {
         event.preventDefault()
         window.localStorage.removeItem("token")
+        window.localStorage.removeItem("username")
         this.setState({logged_in: false})
         window.location.href='/'
   }
@@ -63,7 +65,7 @@ export class Header extends React.Component {
               <Navbar.Collapse className="justify-content-end">
                   { this.state.logged_in &&
                 <Navbar.Text style={{fontSize:"20px"}}>
-                    Hello, {this.state.fullname}
+                    Hello, {this.state.username}
                     &emsp;
                      <Button
                          // data-tip="Clicking this button<br>will sign you out!"

@@ -7,16 +7,16 @@ import {getHeader, GAMES_URL, JOKES_URL} from './request_utils';
 import ReactPaginate from "react-paginate";
 import { clone, cloneDeep } from "lodash"
 import {Game} from "./Game";
+import {SinglePartJoke} from "./SinglePartJoke";
+import {TwoPartJoke} from "./TwoPartJoke";
 
 export class Jokes extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            joke: [],
-            hidden: true
+            jokeData: [],
         }
-
     }
 
     getJoke() {
@@ -27,10 +27,9 @@ export class Jokes extends React.Component {
                 console.log(response)
                 if (response.status !== 200) {
                     console.log('failed getting joke');
-                } else {
-                    this.setState({joke: response.data, hidden: true})
-                    console.log(this.state.joke)
                 }
+                this.setState({jokeData: response.data})
+                console.log(this.state.jokeData)
             })
     }
 
@@ -42,39 +41,11 @@ export class Jokes extends React.Component {
         return (
              <>
             <Header />
-            <Container>
-
-            { this.state.joke.type === 'single' &&
-            <h5>{this.state.joke.joke}  &emsp;
-                <img src={'joke.png'} alt={'laughing emoticon'} width={50}/></h5>}
-                <br/>
-           { this.state.joke.type === 'single' &&
-             <Button variant="success" type="button" onClick={() => this.getJoke()}>
-                 Get another joke
-            </Button>}
-
-            { this.state.joke.type === 'twopart' &&
-            <h5>{this.state.joke.setup}</h5>}
-                 <br/>
-            { this.state.joke.type === 'twopart' &&
-             <Button variant="outline-dark" type="button" size="sm" onClick={() => this.setState({hidden: !this.state.hidden})}>
-                 {this.state.hidden ? 'Reveal punchline' : 'Hide punchline'}
-            </Button> }
-                 <br/><br/>
-            <h5 hidden={this.state.hidden}>{this.state.joke.delivery}
-                &emsp;
-                <img src={'joke.png'} alt={'laughing emoticon'} width={50}/>
-            </h5>
-                 <br/>
-            <Button hidden={this.state.hidden} variant="success" type="button" onClick={() => this.getJoke()}>
-                 Get another joke
-            </Button>
-            { this.state.joke.type === 'twopart' &&
-            <Button hidden={this.state.joke.setup} variant="danger" type="button" onClick={() => this.getJoke()}>
-                 Couldn't get a joke!<br/>Try again...
-            </Button>}
-            </Container>
-        </>
+            { this.state.jokeData.type === 'single' &&
+                <SinglePartJoke jokeData={this.state.jokeData} getJoke={() => this.getJoke()}/>}
+            { this.state.jokeData.type === 'twopart' &&
+                <TwoPartJoke jokeData={this.state.jokeData} getJoke={() => this.getJoke()}/>}
+            </>
         )
     }
 }
