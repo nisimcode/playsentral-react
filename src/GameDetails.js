@@ -10,20 +10,13 @@ export class GameDetails extends React.Component {
         return (
             <>
             <Container style={{display: "flex"}}>
-
                 <div>
-                    <h1 style={{fontStyle: 'italic'}}>{this.props.game.name}</h1>
-                    <img src={this.props.game.picture_url} alt={this.props.game.name + ' image'} height={350} />
-                     {/*<Button*/}
-                     {/*   variant={'primary'} size={'lg'} style={{width: '60px', height: '30px'}}*/}
-                     {/*   onClick={() => this.handleRateGame()}>*/}
-                     {/*   Delete*/}
-                    {/*</Button>}*/}
+                    <h2 style={{fontStyle: 'italic'}}>{this.props.game.name}</h2>
+                    <img src={this.props.game.picture_url} alt={this.props.game.name + ' image'} height={380} />
                 </div>
-                &emsp;&emsp;
-                <div>
+                <div style={{margin: 20, marginTop: 5, width: '250px', maxHeight: '400px'}}>
                     <h3>Details</h3>
-                    <ListGroup as="ul" style={{width: '250px'}}>
+                    <ListGroup as="ul" >
                         <ListGroup.Item
                             as="li" className="d-flex justify-content-between align-items-start">
                             <div className="ms-2 me-auto">
@@ -62,13 +55,7 @@ export class GameDetails extends React.Component {
                                 {this.props.game.genre}
                             </div>
                         </ListGroup.Item>
-                        {/*<ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">*/}
-                        {/*    <div className="ms-2 me-auto">*/}
-                        {/*        <div className="fw-bold">Average Rating</div>*/}
-                        {/*        {this.props.game.avg_rating ? this.props.game.avg_rating : 'N/A'}*/}
-                        {/*    </div>*/}
-                        {/*</ListGroup.Item>*/}
-                    </ListGroup>
+                     </ListGroup>
                 </div>
             </Container>
             </>

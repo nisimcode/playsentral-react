@@ -104,7 +104,7 @@ export class GameRating extends React.Component {
                 Your haven't rated this game yet</h6>
             <Button variant={'info'}
                     size={'sm'}
-                    style={{width: '120px', height: '30px'}}
+                    style={{width: '120px', height: '28px'}}
                     onClick={() => this.setState({showBar: !this.state.showBar})}>
                 {this.state.user_rating_score !== 0 ? 'Change rating' : 'Rate this game'}
             </Button>
@@ -112,16 +112,14 @@ export class GameRating extends React.Component {
                 <Form.Group as={Row}>
                     <Col xs="3">
                         <RangeSlider
-                        // hidden={!this.state.showBar}
                         value={this.state.rating}
                         min={1}
                         max={10}
                         tooltip={'off'}
                         onChange={(event) => this.setState({rating: event.target.value})}
-                // onAfterChange={() => {this.handleRatingSave(); this.setState({showBar: !this.state.showBar})}}
                 />
                     </Col>
-                    <Col  xs="2">
+                    <Col  xs='2'>
                         <Form.Control style={{height: '20px'}} value={this.state.rating}/>
                     </Col>
                 </Form.Group>

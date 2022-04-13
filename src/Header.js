@@ -56,20 +56,21 @@ export class Header extends React.Component {
         return(
             <>
             <Navbar>
-              <Navbar.Brand >PlaySentral</Navbar.Brand>
+              <Navbar.Brand href="/">PlaySentral</Navbar.Brand>
               <Navbar.Toggle />
-              <Nav.Link href="/">Home</Nav.Link>
+              {/*<Nav.Link href="/">Home</Nav.Link>*/}
               <Nav.Link href="/games">Games</Nav.Link>
               {/*<Nav.Link href="/threads">Posts</Nav.Link>*/}
-              <Nav.Link href="/jokes">Random Joke</Nav.Link>
+              <Nav.Link href="/jokes">Jokes</Nav.Link>
               <Navbar.Collapse className="justify-content-end">
                   { this.state.logged_in &&
                 <Navbar.Text style={{fontSize:"20px"}}>
                     Hello, {this.state.username}
                     &emsp;
                      <Button
-                         // data-tip="Clicking this button<br>will sign you out!"
+                         data-tip="Leaving so soon?"
                          variant="outline-secondary"
+                         size='sm'
                          onClick={this.handleSignOut}>
                          Sign out
                      </Button>
@@ -78,15 +79,17 @@ export class Header extends React.Component {
                       }
               { !this.state.logged_in &&
                 <Navbar.Text>
-                    <Button variant="outline-primary" onClick={() => window.location.href='/signin'}>Sign in</Button>
-                    {/*&emsp;*/}
-                    {/*<Button variant="outline-primary" onClick={() => window.location.href='/signup'}>Sign up</Button>*/}
+                    <Button
+                        variant="outline-primary"
+                        size='sm'
+                        onClick={() => window.location.href='/signin'}>
+                        Sign in
+                    </Button>
                 </Navbar.Text>
                       }
 
               </Navbar.Collapse>
           </Navbar>
-          <br />
         </>
         )
     }

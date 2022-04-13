@@ -27,30 +27,33 @@ export class SignUp extends React.Component {
         event.preventDefault()
         // window.localStorage.setItem("username", this.state.username)
         // window.localStorage.setItem("password", this.state.password)
-        axios.post(SIGNUP_URL, {
-            first_name: this.state.firstname,
-            last_name: this.state.lastname,
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email
-        })
-        .then(result => {
-            console.log(result)
-            if (result.status === 200) {
-                axios.post(TOKEN_URL, {
-                username: this.state.username,
-                password: this.state.password
-                })
-                .then(result => {
-                window.localStorage.setItem("token", result.data.token)
+        axios
+            .post(SIGNUP_URL,
+                {
+                    first_name: this.state.firstname,
+                    last_name: this.state.lastname,
+                    username: this.state.username,
+                    password: this.state.password,
+                    email: this.state.email
+            })
+            .then(result => {
                 console.log(result)
-                this.props.navigate('/')
-             })
+                if (result.status === 201) {
+                    axios
+                        .post(TOKEN_URL,
+                            {
+                                username: this.state.username,
+                                password: this.state.password
+                        })
+                        .then(result => {
+                            window.localStorage.setItem("token", result.data.token)
+                            console.log(result)
+                            this.props.navigate('/')
+                        })
+                        .catch(error => window.alert(error))
+                    }
+            })
             .catch(error => window.alert(error))
-            }
-        })
-        .catch(error => window.alert(error))
-
     }
 
     render() {

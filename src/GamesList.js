@@ -50,15 +50,16 @@ export class GamesList extends React.Component {
         return(
             <>
                 <Header />
-                <div style={{display: 'flex', flexDirection: 'column'}}>
                 <InfiniteScroll
                 pageStart={1}
                 loadMore={() => this.getGames()}
                 hasMore={this.state.hasNext}
                 loader={<h1 className="loader" key={0}>Loading ...</h1>}>
-                {gameData}
-                </InfiniteScroll>
+                <div style={{display: "flex", flexWrap: 'wrap'}}>
+                    {gameData}
                 </div>
+                </InfiniteScroll>
+
             </>
         )
     }

@@ -95,13 +95,12 @@ export class Game extends React.Component {
         return(
         <>
             <Header />
-            <div style={{display: 'inline-flex'}}>
-                <div style={{display: 'inline-flex', flexDirection: "column"}}>
+            <div style={{display: "flex", flexWrap: 'wrap'}}>
+                <div style={{display: "flex", flexWrap: 'wrap', flexDirection: "column"}}>
                 <GameDetails game={this.state.game}/>
                     <br/>
                 <GameRating gameId={this.props.gameId}/>
                 </div>
-            &emsp;&emsp;
             <GamePosts gameId={this.props.gameId} gameData={this.props.gameData} />
             </div>
        </>
