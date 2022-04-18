@@ -41,6 +41,7 @@ export class Jokes extends React.Component {
         return (
              <>
             <Header />
+            <br />
             { this.state.jokeData.type === 'single' &&
                 <SinglePartJoke jokeData={this.state.jokeData} getJoke={() => this.getJoke()}/>}
             { this.state.jokeData.type === 'twopart' &&

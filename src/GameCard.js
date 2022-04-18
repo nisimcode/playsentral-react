@@ -12,8 +12,7 @@ export class GameCard extends React.Component {
 
     render() {
         return (
-            <Card key={this.props.game.id}
-                  style={{width: '18rem', padding: 0, margin: 10, borderWidth: 2, borderColor: "lightblue"}} >
+            <Card style={{width: '18rem', padding: 0, margin: 10, borderWidth: 2, borderColor: "lightblue"}}>
                 <Card.Img
                     variant="top" src={this.props.game.picture_url} alt={this.props.game.name + ' image'}
                     style={{display: 'inline-block', width: 150, height: 200,

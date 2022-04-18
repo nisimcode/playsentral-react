@@ -5,6 +5,8 @@ import { Header } from './Header';
 import {GAMES_URL} from './request_utils';
 import InfiniteScroll from 'react-infinite-scroller';
 import {GameCard} from "./GameCard";
+import {SearchBar} from "./SearchBar";
+import {Button, Form, FormControl} from "react-bootstrap";
 
 export class GamesList extends React.Component {
 
@@ -13,50 +15,97 @@ export class GamesList extends React.Component {
         this.state = {
             games: [],
             hasNext: true,
+            searchInput: '',
         }
+        // this.getGames=this.getGames.bind(this)
+        // this.handleSearch=this.handleSearch.bind(this)
         this.source = axios.CancelToken.source()
         this.nextUrl = GAMES_URL
     }
 
+    // searchGames() {
+    //     this.nextUrl = GAMES_URL
+    //     console.log('getting games from ' + this.nextUrl)
+    //     axios
+    //     .get(this.nextUrl,
+    //         {params: {searchInput: this.state.searchInput},
+    //         cancelToken: this.source.token,
+    //     })
+    //     .then(response => {
+    //         console.log(response)
+    //         if (response.status === 200) {
+    //             this.setState(
+    //                 {games: [...this.state.games, ...response.data],
+    //                         hasNext: response.data.next != null})
+    //             this.nextUrl = response.data.next
+    //         }})
+    //     .catch(error =>
+    //         {console.log(error)})
+    //     }
+
+
     getGames() {
-        console.log('getting games')
+        if (this.state.searchInput) {
+            this.nextUrl = GAMES_URL
+            this.setState({games: []})
+        }
+        console.log('getting games from ' + this.nextUrl)
         axios
         .get(this.nextUrl, {
-            cancelToken: this.source.token
-          })
+            cancelToken: this.source.token,
+            params: { searchValue: this.state.searchInput }
+        })
         .then(response => {
             console.log(response)
-            if (response.status === 200) {
+            if (response.statusText === 'OK') {
                 this.setState(
                     {games: [...this.state.games, ...response.data],
                             hasNext: response.data.next != null})
                 this.nextUrl = response.data.next
+                console.log('calling renderGames')
+                this.renderGames()
             }})
         .catch(error =>
             {console.log(error)})
         }
 
+    renderGames () {
+        console.log('inside renderGames')
+         let gameData = this.state.games.map(
+            (game) => {
+                return  <GameCard key={game.id} game={game}/>
+            }
+            )
+        this.setState({gameData})
+    }
+
     componentWillUnmount() {
         this.source.cancel("Request cancelled")
     }
 
+
     render() {
-        let gameData = this.state.games.map(
-            (game) => {
-                return <GameCard game={game}/>
-            }
-            )
 
         return(
             <>
                 <Header />
+                {/*<SearchBar handleSearch={this.handleSearch} />*/}
+                <Form className="d-flex" style={{maxWidth: 400}} >
+                    <FormControl type="search" placeholder="Search" className="me-2" aria-label="Search"
+                      value={this.state.searchInput}
+                      onChange={(event) => this.setState({searchInput: event.target.value})}/>
+                    <Button variant="outline-success"
+                            onClick={() => this.getGames()}>
+                        Search
+                    </Button>
+                </Form>
                 <InfiniteScroll
                 pageStart={1}
                 loadMore={() => this.getGames()}
                 hasMore={this.state.hasNext}
                 loader={<h1 className="loader" key={0}>Loading ...</h1>}>
                 <div style={{display: "flex", flexWrap: 'wrap'}}>
-                    {gameData}
+                    {this.state.gameData}
                 </div>
                 </InfiniteScroll>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactPaginate from "react-paginate";
 import {ListGroup} from "react-bootstrap";
 import axios from "axios";
-import {GAMES_URL, getToken, POSTS_URL} from "./request_utils";
+import {GAMES_URL, getToken, POSTS_URL, RESPONSES_URL} from "./request_utils";
 import Button from "react-bootstrap/Button";
 import {AddPostModal} from "./AddPostModal";
 import Modal from "react-bootstrap/Modal";
@@ -14,24 +14,33 @@ export class GamePosts extends React.Component {
        this.state = {
             posts: [],
             username: '',
+            response: '',
             showPostModal: false,
-            currPostId: '',
+            currPostId: 0,
       }
    }
 
     getPosts() {
-        console.log('getting posts')
+        console.log('getting game posts from ' + GAMES_URL + this.props.gameId + '/posts')
         axios
-        .get(GAMES_URL + this.props.gameId + '/posts', getToken())
-        .then(response => {
-            console.log(response)
-            if (response.status !== 200) {
-                console.log('failed getting posts');
-            } else {
-                this.setState({posts: response.data,
-                                    username: window.localStorage.getItem('username')})
-                console.log(this.state.posts)
-                }})}
+            .get(GAMES_URL + this.props.gameId + '/posts', getToken())
+            .then(response => {
+                console.log(response)
+                if (response.status === 200) {
+                    this.setState({
+                        posts: response.data,
+                        username: window.localStorage.getItem('username'),
+                        // userId: window.localStorage.getItem('userId')
+                    })
+                    console.log(this.state.posts)
+                } else {
+                    console.log('failed getting games')
+                }
+            })
+            .catch(function (error) {
+                console.log(error.toJSON())
+            })
+    }
 
     renderPosts(post) {
        return (
@@ -41,11 +50,25 @@ export class GamePosts extends React.Component {
                     <div className="fw-bold">{post.text} </div>
                     <div style={{fontStyle: "italic"}}>{post.username}</div>
                     <Button
-                        variant={'primary'} size={'sm'} style={{width: '90px', height: '30px'}}
-                        onClick={() => window.location.href = `${post.game_id}/posts/${post.post_id}`}>
-                        Comments
+                        variant={post.user_response === 'like' ? 'success' : 'outline-success'}
+                        size={'sm'} style={{width: '90px', height: '30px'}}
+                        onClick={() => this.handleResponse(post.post_id, 'like')}>
+                        Like ({post.likes})
                     </Button>
-                    &ensp;
+                   &ensp;
+                    <Button
+                        variant={post.user_response === 'dislike' ? 'danger' : 'outline-danger'}
+                        size={'sm'} style={{width: '90px', height: '30px'}}
+                        onClick={() => this.handleResponse(post.post_id, 'dislike')}>
+                        Dislike ({post.dislikes})
+                    </Button>
+                   &emsp;
+                    {/*<Button*/}
+                    {/*    variant={'primary'} size={'sm'} style={{width: '90px', height: '30px'}}*/}
+                    {/*    onClick={() => window.location.href = `${post.game_id}/posts/${post.post_id}`}>*/}
+                    {/*    Comments*/}
+                    {/*</Button>*/}
+                    {/*&ensp;*/}
                     <Button
                         variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
                         hidden={post.username!== this.state.username}
@@ -78,7 +101,7 @@ export class GamePosts extends React.Component {
         axios
             .post(
             GAMES_URL + this.props.gameId + '/posts',
-            {text: this.state.text, game: this.props.gameId},
+            {text: this.state.text, game: this.props.gameId, addLike: true},
             getToken()
             )
             .then(response => {
@@ -100,7 +123,7 @@ export class GamePosts extends React.Component {
                 {text: this.state.text, game: this.props.gameId},
                 getToken())
             .then(response => {
-                if (response.status === 204) {
+                if (response.status === 201 || response.status === 204) {
                     this.getPosts()
                 }
             })
@@ -110,9 +133,10 @@ export class GamePosts extends React.Component {
             console.log(this.state.posts)
     }
 
+
     handleDeletePost(postId) {
-        console.log(`${POSTS_URL + postId}`)
-        console.log("handleDeletePost")
+        console.log("called handleDeletePost")
+        console.log('asking to delete ' + POSTS_URL + postId)
         axios
             .delete(POSTS_URL + postId, getToken())
             .then(response => {
@@ -126,7 +150,28 @@ export class GamePosts extends React.Component {
             console.log(this.state.posts)
     }
 
-    componentDidMount() {
+
+    handleResponse (postId, response) {
+        console.log("called handleResponse ")
+        console.log('sending game post response to: ' + RESPONSES_URL)
+        axios
+            .post(
+                RESPONSES_URL,
+                {post: postId, response: response, game: this.props.gameId},
+                getToken())
+            .then(response => {
+                if (response.status === 201 || response.status === 204) {
+                    console.log('game post response sent successfully')
+                    console.log('asking to refresh game posts')
+                    this.getPosts()
+                }
+            })
+            .catch(function (error) {
+                console.log(error.toJSON())
+            })
+    }
+
+       componentDidMount() {
         this.getPosts()
     }
 
@@ -162,7 +207,7 @@ export class GamePosts extends React.Component {
                             <Form.Text>
                                 <Form.Control
                                     type="text" placeholder="Enter text here..."
-                                    value={this.state.text}
+                                    value={this.state.text} aria-required={'true'}
                                     onChange={(event) => this.setState({text: event.target.value})}/>
                             </Form.Text>
                         </Form.Group>

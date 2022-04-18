@@ -15,6 +15,7 @@ export class Header extends React.Component {
         this.state = {
             logged_in: false,
             username: "",
+            userId: ""
         }
         this.handleSignOut = this.handleSignOut.bind(this)
       }
@@ -25,12 +26,13 @@ export class Header extends React.Component {
           axios.get(CURRENT_USER_URL, getToken())
           .then(response => {
             if (response.status === 200) {
-                console.log("got response for user " + response.data)
-                localStorage.setItem('username', response.data)
+                console.log("got response for user " + response.data.username)
+                localStorage.setItem('username', response.data.username)
+                localStorage.setItem('userId', response.data.userId)
                 this.setState(
-                    {logged_in: true, username: response.data})
+                    {logged_in: true, username: response.data.username})
             } else if (response.status === 401) {
-              console.log('401')
+              console.log('401: Unauthorized')
             }
           })
           .catch(error => {
