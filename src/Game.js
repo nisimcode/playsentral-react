@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import ReactPaginate from "react-paginate";
 import {GamePosts} from "./GamePosts";
 import {GameRating} from "./GameRating";
+import {PostComments} from "./PostComments";
 
 
 export class Game extends React.Component {

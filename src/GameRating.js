@@ -120,7 +120,10 @@ export class GameRating extends React.Component {
                 />
                     </Col>
                     <Col  xs='2'>
-                        <Form.Control style={{height: '20px'}} value={this.state.rating}/>
+                        <Form.Control
+                            onChange={undefined}
+                            style={{height: '20px'}}
+                            value={this.state.rating}/>
                     </Col>
                 </Form.Group>
             </Form>

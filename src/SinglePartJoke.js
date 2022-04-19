@@ -1,17 +1,10 @@
-import React, {Component} from 'react';
 import {Button} from "react-bootstrap";
 
-export class SinglePartJoke extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
+    function SinglePartJoke (props) {
 
-    }
-    render() {
         return (
             <>
-            <h5>{this.props.jokeData.joke}
+            <h5>{props.joke}
                 &emsp;
                 <img src={'joke.png'}
                  alt={'laughing emoticon'}
@@ -20,11 +13,11 @@ export class SinglePartJoke extends Component {
             <br/>
             <Button variant="success"
                     type="button"
-                    onClick={() => this.props.getJoke()}>
+                    onClick={props.getJoke}>
                  Get another joke
             </Button>
             </>
-        );
+        )
     }
-}
 
+export default SinglePartJoke

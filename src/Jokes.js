@@ -1,25 +1,15 @@
 import axios from 'axios';
-import React from 'react';
-import { Button, Form, ListGroup, Modal, ModalBody, ModalFooter, ModalTitle } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
+import {useEffect, useState} from 'react';
 import { Header } from './Header';
-import {getHeader, GAMES_URL, JOKES_URL} from './request_utils';
-import ReactPaginate from "react-paginate";
-import { clone, cloneDeep } from "lodash"
-import {Game} from "./Game";
-import {SinglePartJoke} from "./SinglePartJoke";
-import {TwoPartJoke} from "./TwoPartJoke";
+import {JOKES_URL} from './request_utils';
+import SinglePartJoke from "./SinglePartJoke";
+import TwoPartJoke from "./TwoPartJoke";
 
-export class Jokes extends React.Component {
+function Jokes () {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            jokeData: [],
-        }
-    }
+    const [jokeData, setJokeData] = useState([])
 
-    getJoke() {
+    const getJoke = () => {
         console.log('getting a random joke')
         axios
             .get(JOKES_URL)
@@ -28,25 +18,25 @@ export class Jokes extends React.Component {
                 if (response.status !== 200) {
                     console.log('failed getting joke');
                 }
-                this.setState({jokeData: response.data})
-                console.log(this.state.jokeData)
+                setJokeData(response.data)
+                console.log(jokeData)
             })
     }
 
-    componentDidMount() {
-        this.getJoke()
-    }
+    useEffect(() => {getJoke()}, [])
 
-    render() {
-        return (
-             <>
-            <Header />
-            <br />
-            { this.state.jokeData.type === 'single' &&
-                <SinglePartJoke jokeData={this.state.jokeData} getJoke={() => this.getJoke()}/>}
-            { this.state.jokeData.type === 'twopart' &&
-                <TwoPartJoke jokeData={this.state.jokeData} getJoke={() => this.getJoke()}/>}
-            </>
-        )
-    }
+
+    return (
+         <>
+        <Header />
+        <br />
+        { jokeData.type === 'single' &&
+            <SinglePartJoke joke={jokeData.joke} getJoke={getJoke}/>}
+        { jokeData.type === 'twopart' &&
+            <TwoPartJoke jokeSetup={jokeData.setup} jokeDelivery={jokeData.delivery} getJoke={getJoke}/>}
+        </>
+    )
+
 }
+
+export default Jokes

@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import {AddPostModal} from "./AddPostModal";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import {PostComments} from "./PostComments";
 
 export class GamePosts extends React.Component {
    constructor(props) {
@@ -15,7 +16,10 @@ export class GamePosts extends React.Component {
             posts: [],
             username: '',
             response: '',
+            text: '',
             showPostModal: false,
+            showComments: false,
+            enableComments: false,
             currPostId: 0,
       }
    }
@@ -42,33 +46,43 @@ export class GamePosts extends React.Component {
             })
     }
 
+    callComments () {
+        this.setState({showComments: true, enableComments: true})
+    }
+
     renderPosts(post) {
        return (
            <ListGroup.Item key={post.post_id}
-            as="li" className="d-flex justify-content-between align-items-start" style={{width: '500px'}}>
+            as="li" className="d-flex justify-content-between align-items-start"
+                           style={{width: '400px',
+                               backgroundColor: this.state.showComments && this.state.currPostId === post.post_id
+                                   ? 'lightblue' : 'white'}}>
                <div className="ms-2 me-auto">
                     <div className="fw-bold">{post.text} </div>
                     <div style={{fontStyle: "italic"}}>{post.username}</div>
                     <Button
                         variant={post.user_response === 'like' ? 'success' : 'outline-success'}
-                        size={'sm'} style={{width: '90px', height: '30px'}}
+                        size={'sm'} style={{width: '60px', height: '30px'}}
                         onClick={() => this.handleResponse(post.post_id, 'like')}>
-                        Like ({post.likes})
+                        👍 ({post.likes})
                     </Button>
                    &ensp;
                     <Button
                         variant={post.user_response === 'dislike' ? 'danger' : 'outline-danger'}
-                        size={'sm'} style={{width: '90px', height: '30px'}}
+                        size={'sm'} style={{width: '60px', height: '30px'}}
                         onClick={() => this.handleResponse(post.post_id, 'dislike')}>
-                        Dislike ({post.dislikes})
+                        👎 ({post.dislikes})
                     </Button>
                    &emsp;
-                    {/*<Button*/}
-                    {/*    variant={'primary'} size={'sm'} style={{width: '90px', height: '30px'}}*/}
-                    {/*    onClick={() => window.location.href = `${post.game_id}/posts/${post.post_id}`}>*/}
-                    {/*    Comments*/}
-                    {/*</Button>*/}
-                    {/*&ensp;*/}
+                    <Button
+                        variant={this.state.showComments && this.state.currPostId === post.post_id
+                            ? 'primary' : 'outline-primary'}
+                        size={'sm'} style={{width: '60px', height: '30px'}}
+                        onClick={() => this.setState(
+                            {currPostId: post.post_id, showComments: !this.state.showComments})}>
+                        ✍️
+                    </Button>
+                    &ensp;
                     <Button
                         variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
                         hidden={post.username!== this.state.username}
@@ -183,17 +197,21 @@ export class GamePosts extends React.Component {
        )
 
         return (
+            <>
             <div style={{margin: 20, marginTop: 5, width: 250}}>
-            <h3 style={{display: 'inline-flex'}}>Posts
+            <h3 style={{display: 'flex'}}>Posts
                 &emsp;
                 <Button variant={'outline-primary'} size={'sm'} style={{width: 150, height: 30, marginTop: 5}}
                     onClick={() => this.setState({showPostModal: true, currPostId: '', text: ''})}>
                 Add your post
                 </Button>
             </h3>
-            <div style={{margin: -35}}>
-                {postData}
-            </div>
+
+                <div style={{margin: -33}}>
+                    {postData}
+                </div>
+
+
             <Modal
                 show={this.state.showPostModal}
                 onHide={() => this.setState({showPostModal: false})}>
@@ -225,6 +243,12 @@ export class GamePosts extends React.Component {
                 </Modal.Footer>
             </Modal>
             </div>
+              {this.state.showComments &&
+                <div style={{marginTop: -490, marginLeft: 970}}>
+                    <PostComments  postId={this.state.currPostId}/>
+                </div>
+                }
+                </>
         );
     }
 }

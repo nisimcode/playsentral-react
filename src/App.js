@@ -9,7 +9,7 @@ import {Welcome} from "./Welcome";
 import {GamesList} from "./GamesList";
 import {WrappedGame, WrappedGameDetails} from "./Game";
 import {WrappedSignUp} from "./SignUp";
-import {Jokes} from "./Jokes";
+import Jokes from "./Jokes";
 import {WrappedGameThreads} from "./GamePosts";
 import {PostComments, Posts} from "./PostComments";
 
