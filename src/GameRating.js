@@ -86,7 +86,6 @@ export class GameRating extends React.Component {
                 this.getRating()
             }})
             this.setState({rating: ''})
-            console.log(this.state.posts)
      }
 
     render() {

@@ -5,7 +5,7 @@ import {JOKES_URL} from './request_utils';
 import SinglePartJoke from "./SinglePartJoke";
 import TwoPartJoke from "./TwoPartJoke";
 
-function Jokes () {
+export default function Jokes () {
 
     const [jokeData, setJokeData] = useState([])
 
@@ -15,19 +15,30 @@ function Jokes () {
             .get(JOKES_URL)
             .then(response => {
                 console.log(response)
-                if (response.status !== 200) {
-                    console.log('failed getting joke');
+                if (response.status === 200) {
+                    setJokeData(response.data)
+                    console.log('jokeData: ' + jokeData)
+                } else {
+                    console.log('failed getting joke')
                 }
-                setJokeData(response.data)
-                console.log(jokeData)
-            })
+            }
+            )
+            .catch(error =>
+            {
+                console.log(error)
+            }
+            )
     }
 
-    useEffect(() => {getJoke()}, [])
+    useEffect(() =>
+        {
+            getJoke()
+        }, []
+    )
 
 
     return (
-         <>
+        <>
         <Header />
         <br />
         { jokeData.type === 'single' &&
@@ -38,5 +49,3 @@ function Jokes () {
     )
 
 }
-
-export default Jokes

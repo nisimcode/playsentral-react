@@ -19,7 +19,6 @@ export class GamePosts extends React.Component {
             text: '',
             showPostModal: false,
             showComments: false,
-            enableComments: false,
             currPostId: 0,
       }
    }
@@ -244,7 +243,7 @@ export class GamePosts extends React.Component {
             </Modal>
             </div>
               {this.state.showComments &&
-                <div style={{marginTop: -490, marginLeft: 970}}>
+                <div style={{marginTop: -533, marginLeft: 970}}>
                     <PostComments  postId={this.state.currPostId}/>
                 </div>
                 }

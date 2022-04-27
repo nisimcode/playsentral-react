@@ -6,21 +6,21 @@ import { Routes, Route } from "react-router-dom";
 import {Container} from "react-bootstrap";
 import {WrappedSignIn} from './SignIn';
 import {Welcome} from "./Welcome";
-import {GamesList} from "./GamesList";
-import {WrappedGame, WrappedGameDetails} from "./Game";
+import GamesList from "./GamesList";
+import {WrappedGame} from "./Game";
 import {WrappedSignUp} from "./SignUp";
 import Jokes from "./Jokes";
-import {WrappedGameThreads} from "./GamePosts";
-import {PostComments, Posts} from "./PostComments";
+import {PostComments} from "./PostComments";
 
 
-class App extends React.Component {
+function App () {
 
-  render() {
-    return(
+      return(
 
       <Container>
+
         <Routes>
+
             <Route path="/" element={<Welcome/>} />
             <Route path="/signin" element={<WrappedSignIn/>} />
             <Route path="/signup" element={<WrappedSignUp/>} />
@@ -28,21 +28,12 @@ class App extends React.Component {
             <Route path="/games/:gameId" element={<WrappedGame/>} />
             <Route path="/jokes" element={<Jokes/>} />
             <Route path="/games/:gameId/posts/:postId" element={<PostComments/>} />
-            {/*<Route path="/games/:threadId/details" element={<WrappedThreadDetails/>} />*/}
-            {/*<Route path="/games/:gameId/threads" element={<WrappedGameThreads/>} />*/}
-            {/*<Route path="/game_threads/:game_tag" element={<Posts/>} />*/}
-            {/*<Route path="/game_threads/:thread_id" element={<WrappedThread/>} />*/}
 
-
-            {/*<Route path="/signup" element={<WrappedLogin />} />*/}
-
-            {/*<Route path="/user_profile" element={<WrappedUserProfile />} />*/}
         </Routes>
+
       </Container>
 
     )
-  }
-
 }
 
 export default App;

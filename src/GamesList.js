@@ -1,14 +1,12 @@
 import axios from 'axios';
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import { Header } from './Header';
 import {GAMES_URL} from './request_utils';
 import InfiniteScroll from 'react-infinite-scroller';
-import {GameCard} from "./GameCard";
-import {SearchBar} from "./SearchBar";
+import GameCard from "./GameCard";
 import {Button, Form, FormControl} from "react-bootstrap";
 
-export class GamesList extends React.Component {
+export default class GamesList extends React.Component {
 
     constructor(props) {
         super(props)
@@ -17,31 +15,10 @@ export class GamesList extends React.Component {
             hasNext: true,
             searchInput: '',
         }
-        // this.getGames=this.getGames.bind(this)
-        // this.handleSearch=this.handleSearch.bind(this)
+
         this.source = axios.CancelToken.source()
         this.nextUrl = GAMES_URL
     }
-
-    // searchGames() {
-    //     this.nextUrl = GAMES_URL
-    //     console.log('getting games from ' + this.nextUrl)
-    //     axios
-    //     .get(this.nextUrl,
-    //         {params: {searchInput: this.state.searchInput},
-    //         cancelToken: this.source.token,
-    //     })
-    //     .then(response => {
-    //         console.log(response)
-    //         if (response.status === 200) {
-    //             this.setState(
-    //                 {games: [...this.state.games, ...response.data],
-    //                         hasNext: response.data.next != null})
-    //             this.nextUrl = response.data.next
-    //         }})
-    //     .catch(error =>
-    //         {console.log(error)})
-    //     }
 
 
     getGames() {
@@ -53,7 +30,7 @@ export class GamesList extends React.Component {
         axios
         .get(this.nextUrl, {
             cancelToken: this.source.token,
-            params: { searchValue: this.state.searchInput }
+            params: { searchValue: this.state.searchInput}
         })
         .then(response => {
             console.log(response)
@@ -68,7 +45,7 @@ export class GamesList extends React.Component {
         .catch(error =>
             {console.log(error)})
         }
-
+    //
     renderGames () {
         console.log('inside renderGames')
          let gameData = this.state.games.map(
@@ -98,6 +75,7 @@ export class GamesList extends React.Component {
                             onClick={() => this.getGames()}>
                         Search
                     </Button>
+
                 </Form>
                 <InfiniteScroll
                 pageStart={1}

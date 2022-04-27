@@ -2,7 +2,7 @@ import React from 'react';
 import {Card} from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav'
 
-export class GameCard extends React.Component {
+export default class GameCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {

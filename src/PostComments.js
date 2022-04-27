@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React from 'react';
-import {getToken, POSTS_URL} from './request_utils';
+import {COMMENTS_URL, getToken, POSTS_URL} from './request_utils';
 import InfiniteScroll from 'react-infinite-scroller';
 import {ListGroup} from "react-bootstrap";
+import {Button} from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 
 export class PostComments extends React.Component {
 
@@ -13,10 +16,20 @@ export class PostComments extends React.Component {
             text: '',
             username: '',
             hasNext: true,
+            currCommId: 0,
+            showCommentModal: false
         }
 
         this.source = axios.CancelToken.source()
         this.nextUrl = POSTS_URL + this.props.postId + '/comments'
+    }
+
+     handleCommentSave() {
+       if (this.state.currCommId !== '') {
+           this.handleEditComment()
+       } else {
+           this.handleNewComment()
+       }
     }
 
     handleNewComment() {
@@ -29,11 +42,47 @@ export class PostComments extends React.Component {
             )
             .then(response => {
             if (response.status === 201) {
-                this.nextUrl = POSTS_URL + this.props.postId + '/comments'
+                // this.nextUrl = POSTS_URL + this.props.postId + '/comments'
                 this.getComments()
             }})
             .catch(function (error) {
                 console.log(error.toJSON())
+            })
+            console.log(this.state.comments)
+    }
+
+
+    handleEditComment() {
+        console.log(`${COMMENTS_URL + this.state.currCommId}`)
+        console.log("handleEditComment")
+        axios
+            .put(
+                COMMENTS_URL + this.state.currCommId,
+                {text: this.state.text, post: this.props.postId},
+                getToken())
+            .then(response => {
+                if (response.status === 201 || response.status === 204) {
+                    this.getComments()
+                }
+            })
+            .catch(function (error) {
+                console.log(error.toJSON())
+            })
+            console.log(this.state.comments)
+    }
+
+    handleDeleteComment(commentId) {
+        console.log("called handleDeleteComment")
+        console.log('asking to delete ' + COMMENTS_URL + commentId)
+        axios
+            .delete(COMMENTS_URL + commentId, getToken())
+            .then(response => {
+                if (response.status === 204) {
+                    this.getComments()
+                }
+            })
+            .catch(function (error) {
+                console.log(error.toJSON());
             })
             console.log(this.state.comments)
     }
@@ -54,7 +103,7 @@ export class PostComments extends React.Component {
             if (response.statusText === 'OK') {
                 this.setState(
                     {comments: [...this.state.comments, ...response.data],
-                            hasNext: response.data.next != null})
+                            hasNext: response.data.next != null, username: window.localStorage.getItem('username')})
                 this.nextUrl = response.data.next
                 console.log('calling renderComments')
             }})
@@ -90,20 +139,20 @@ export class PostComments extends React.Component {
                    {/*     Comments*/}
                    {/* </Button>*/}
                    {/* &ensp;*/}
-                   {/* <Button*/}
-                   {/*     variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}*/}
-                   {/*     hidden={post.username!== this.state.username}*/}
-                   {/*     onClick={() => {this.setState*/}
-                   {/*                 ({showPostModal: true, currPostId: post.post_id})}}>*/}
-                   {/*     Edit*/}
-                   {/* </Button>*/}
-                   {/* &ensp;*/}
-                   {/* <Button*/}
-                   {/*     variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}*/}
-                   {/*     hidden={post.username !== this.state.username}*/}
-                   {/*     onClick={() => this.handleDeletePost(post.post_id)}>*/}
-                   {/*     Delete*/}
-                   {/* </Button>*/}
+                    <Button
+                        variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
+                        hidden={comment.username!== this.state.username}
+                        onClick={() => {this.setState
+                                    ({showCommentModal: true, currPostId: comment.comment_id})}}>
+                        Edit
+                    </Button>
+                    &ensp;
+                    <Button
+                        variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
+                        hidden={comment.username !== this.state.username}
+                        onClick={() => this.handleDeleteComment(comment.comment_id)}>
+                        Delete
+                    </Button>
                 </div>
             </ListGroup.Item>
        )
@@ -123,6 +172,44 @@ export class PostComments extends React.Component {
             )
 
         return(
+            <>
+             <h3 style={{display: 'flex'}}>Comments
+                &emsp;
+                <Button variant={'outline-primary'} size={'sm'} style={{width: 150, height: 30, marginTop: 5}}
+                    onClick={() => this.setState({showCommentModal: true, currCommId: '', text: ''})}>
+                Add your comment
+                </Button>
+                 <Modal
+                show={this.state.showCommentModal}
+                onHide={() => this.setState({showCommentModal: false})}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Comment</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form >
+                        <Form.Group className="mb-3">
+                            <Form.Label>Text</Form.Label>
+                            <Form.Text>
+                                <Form.Control
+                                    type="text" placeholder="Enter text here..."
+                                    value={this.state.text} aria-required={'true'}
+                                    onChange={(event) => this.setState({text: event.target.value})}/>
+                            </Form.Text>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary"
+                            onClick={() => this.setState({showCommentModal: false})}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary"
+                            onClick={() => {this.setState({showCommentModal: false}); this.handleCommentSave()}}>
+                        Save
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            </h3>
                 <InfiniteScroll
                 pageStart={1}
                 loadMore={() => this.getComments()}
@@ -132,6 +219,7 @@ export class PostComments extends React.Component {
                     {commentData}
                 </div>
                 </InfiniteScroll>
+            </>
         )
     }
 }
