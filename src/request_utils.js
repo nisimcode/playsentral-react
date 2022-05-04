@@ -1,5 +1,5 @@
 // export const BASE_URL = "http://127.0.0.1:8000"
-export const BASE_URL = "https://playsentral-django.herokuapp.com/"
+export const BASE_URL = "https://playsentral-django.herokuapp.com"
 
 export const GAMES_URL= `${BASE_URL}/games/`
 export const TOKEN_URL = `${BASE_URL}/token/`
