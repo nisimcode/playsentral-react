@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { useNavigate } from "react-router-dom";
 import {TOKEN_URL} from "./request_utils";
-import {Header} from "./Header";
+import Header from "./Header";
 
 
 export class SignIn extends React.Component {

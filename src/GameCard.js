@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card} from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav'
 
 export default class GameCard extends React.Component {

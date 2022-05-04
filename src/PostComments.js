@@ -103,7 +103,8 @@ export class PostComments extends React.Component {
             if (response.statusText === 'OK') {
                 this.setState(
                     {comments: [...this.state.comments, ...response.data],
-                            hasNext: response.data.next != null, username: window.localStorage.getItem('username')})
+                            hasNext: response.data.next != null,
+                            username: window.localStorage.getItem('username')})
                 this.nextUrl = response.data.next
                 console.log('calling renderComments')
             }})

@@ -1,19 +1,14 @@
 import React from 'react';
+import Header from './Header';
 
-import { Header } from './Header';
-import {Carousel, Container} from "react-bootstrap";
-import { getHeader, GAMES_URL } from './request_utils';
+export default function Welcome () {
 
-export class Welcome extends React.Component {
-
-    render() {
-        return(
-        <>
-            <Header />
-            <h2>PlaySentral, your go-to website for PS games</h2>
-            <br/>
-            <img src={'game_collage.jpg'} alt="logo" height={650} />
-        </>
-            )
-    }
+    return(
+    <>
+        <Header />
+        <h2>PlaySentral, your go-to website for PS games</h2>
+        <br/>
+        <img src={'game_collage.jpg'} alt="logo" height={650} />
+    </>
+        )
 }

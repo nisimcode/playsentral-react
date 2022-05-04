@@ -1,6 +1,6 @@
 import {Button} from "react-bootstrap";
 
-    function SinglePartJoke (props) {
+export default function SinglePartJoke (props) {
 
         return (
             <>
@@ -20,4 +20,3 @@ import {Button} from "react-bootstrap";
         )
     }
 
-export default SinglePartJoke

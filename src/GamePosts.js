@@ -1,10 +1,8 @@
 import React from 'react';
-import ReactPaginate from "react-paginate";
 import {ListGroup} from "react-bootstrap";
 import axios from "axios";
 import {GAMES_URL, getToken, POSTS_URL, RESPONSES_URL} from "./request_utils";
 import Button from "react-bootstrap/Button";
-import {AddPostModal} from "./AddPostModal";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import {PostComments} from "./PostComments";
@@ -18,7 +16,7 @@ export class GamePosts extends React.Component {
             response: '',
             text: '',
             showPostModal: false,
-            showComments: false,
+            // showComments: false,
             currPostId: 0,
       }
    }
@@ -56,7 +54,11 @@ export class GamePosts extends React.Component {
                            style={{width: '400px',
                                backgroundColor: this.state.showComments && this.state.currPostId === post.post_id
                                    ? 'lightblue' : 'white'}}>
-               <div className="ms-2 me-auto">
+               <div className="ms-2 me-auto"
+               onMouseEnter={() => this.setState(
+                            {currPostId: post.post_id, showComments: true})}
+                        onMouseLeave={() => this.setState(
+                            {currPostId: post.post_id, showComments: false})}>
                     <div className="fw-bold">{post.text} </div>
                     <div style={{fontStyle: "italic"}}>{post.username}</div>
                     <Button
@@ -73,14 +75,16 @@ export class GamePosts extends React.Component {
                         👎 ({post.dislikes})
                     </Button>
                    &emsp;
-                    <Button
-                        variant={this.state.showComments && this.state.currPostId === post.post_id
-                            ? 'primary' : 'outline-primary'}
-                        size={'sm'} style={{width: '60px', height: '30px'}}
-                        onClick={() => this.setState(
-                            {currPostId: post.post_id, showComments: !this.state.showComments})}>
-                        ✍️
-                    </Button>
+                    {/*<Button*/}
+                    {/*    variant={this.state.showComments && this.state.currPostId === post.post_id*/}
+                    {/*        ? 'primary' : 'outline-primary'}*/}
+                    {/*    size={'sm'} style={{width: '60px', height: '30px'}}*/}
+                    {/*    onMouseEnter={() => this.setState(*/}
+                    {/*        {currPostId: post.post_id, showComments: true})}*/}
+                    {/*    onMouseLeave={() => this.setState(*/}
+                    {/*        {currPostId: post.post_id, showComments: false})}>*/}
+                    {/*    ✍️*/}
+                    {/*</Button>*/}
                     &ensp;
                     <Button
                         variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}

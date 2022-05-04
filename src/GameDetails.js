@@ -1,10 +1,7 @@
 import React from 'react';
 import {Container, ListGroup} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import {GameRating} from "./GameRating";
 
 export class GameDetails extends React.Component {
-
 
     render() {
         return (
@@ -63,10 +60,3 @@ export class GameDetails extends React.Component {
         )
     }
 }
-
-// export const WrappedGameDetails = props => {
-//     const {gameId} = useParams()
-//     const navigate = useNavigate()
-//     return <GameDetails gameId={gameId} navigate={navigate} {...props} />
-//
-// }

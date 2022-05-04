@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { Header } from './Header';
+import Header from './Header-cls';
 import {GAMES_URL} from './request_utils';
 import InfiniteScroll from 'react-infinite-scroller';
 import GameCard from "./GameCard";

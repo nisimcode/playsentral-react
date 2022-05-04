@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {GAMES_URL, getToken} from "./request_utils";
-import {Header} from "./Header";
+import Header from "./Header";
 import {GameDetails} from "./GameDetails";
 import {GamePosts} from "./GamePosts";
 import {GameRating} from "./GameRating";
