@@ -22,8 +22,6 @@ export class SignIn extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        // window.localStorage.setItem("username", this.state.username)
-        // window.localStorage.setItem("password", this.state.password)
         axios.post(TOKEN_URL, {
             username: this.state.username,
             password: this.state.password
@@ -69,8 +67,6 @@ export class SignIn extends React.Component {
 }
 
 export const WrappedSignIn = props => {
-
     const navigate = useNavigate()
-
     return <SignIn navigate={navigate} {...props} />
   }

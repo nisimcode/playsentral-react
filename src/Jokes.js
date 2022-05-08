@@ -23,13 +23,11 @@ export default function Jokes() {
             return <SinglePartJoke joke={jokeData.joke} getJoke={getJoke}/>
         } else if (jokeData.type === 'twopart') {
             return <TwoPartJoke jokeSetup={jokeData.setup} jokeDelivery={jokeData.delivery} getJoke={getJoke}/>
-        } else {
-        console.log('incorrect jokeData.type')
         }
     }
 
     useEffect(() =>{
-        getJoke().then(() => console.log('Jokes component mounted and getJoke called'))
+        getJoke().then(null)
         }, []
     )
 
