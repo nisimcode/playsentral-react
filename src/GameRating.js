@@ -90,12 +90,12 @@ export class GameRating extends React.Component {
                 <h5>
                     This game's current rating average is {+this.state.avg_rating.toFixed(2)}
                 </h5> }
-                { this.state.avg_rating !== 0 &&
+                { this.state.avg_rating === 0 &&
                 <h5>
                     This game hasn't been rated yet
                 </h5> }
 
-                { this.state.user_rating_score === 0 &&
+                { this.state.user_rating_score !== 0 &&
                 <h6>
                     Your current rating of this game is: {this.state.user_rating_score}
                 </h6> }
