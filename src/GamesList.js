@@ -20,34 +20,33 @@ export default class GamesList extends React.Component {
         this.nextUrl = GAMES_URL
     }
 
-
     getGames() {
         if (this.state.searchInput) {
             this.nextUrl = GAMES_URL
             this.setState({games: []})
         }
-        console.log('getting games from ' + this.nextUrl)
+        // console.log('getting games from ' + this.nextUrl)
         axios
         .get(this.nextUrl, {
             cancelToken: this.source.token,
             params: { searchValue: this.state.searchInput}
         })
         .then(response => {
-            console.log(response)
+            // console.log(response)
             if (response.statusText === 'OK') {
                 this.setState(
                     {games: [...this.state.games, ...response.data],
                             hasNext: response.data.next != null})
                 this.nextUrl = response.data.next
-                console.log('calling renderGames')
+                // console.log('calling renderGames')
                 this.renderGames()
             }})
         .catch(error =>
-            {console.log(error)})
+            {window.alert(error)})
         }
     //
     renderGames () {
-        console.log('inside renderGames')
+        // console.log('inside renderGames')
          let gameData = this.state.games.map(
             (game) => {
                 return  <GameCard key={game.id} game={game}/>

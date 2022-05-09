@@ -14,7 +14,7 @@ export default function Jokes() {
             const res = await axios.get(JOKES_URL)
             setJokeData(res.data)
         } catch(err) {
-                console.error(err)
+                window.alert(err)
             }
         }
 

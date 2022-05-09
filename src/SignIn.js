@@ -67,6 +67,7 @@ export class SignIn extends React.Component {
 }
 
 export const WrappedSignIn = props => {
+
     const navigate = useNavigate()
     return <SignIn navigate={navigate} {...props} />
   }

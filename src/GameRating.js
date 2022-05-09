@@ -18,20 +18,21 @@ export class GameRating extends React.Component {
      }
 
      getRating() {
-        console.log('getting game rating')
+        // console.log('getting game rating')
         axios
         .get(GAMES_URL + this.props.gameId + '/ratings', getToken())
         .then(response => {
-            console.log(response)
-            if (response.status !== 200) {
-                console.log('failed getting game')
-            }
-            this.setState({
-                avg_rating: response.data.avg_rating,
-                user_rating_score: response.data.user_rating_score,
-                user_rating_id: response.data.user_rating_id
+            // console.log(response)
+            if (response.status === 200) {
+                this.setState({
+                    avg_rating: response.data.avg_rating,
+                    user_rating_score: response.data.user_rating_score,
+                    user_rating_id: response.data.user_rating_id
                 })
-        })
+            }
+            }
+        )
+        .catch(error => window.alert(error))
      }
 
      componentDidMount() {
@@ -48,8 +49,8 @@ export class GameRating extends React.Component {
      }
 
      handleEditRating () {
-        console.log(`${RATINGS_URL + this.state.user_rating_id}`)
-        console.log("handleEditPost")
+        // console.log(`${RATINGS_URL + this.state.user_rating_id}`)
+        // console.log("handleEditPost")
         axios
             .put(
                 RATINGS_URL + this.state.user_rating_id,
@@ -60,16 +61,14 @@ export class GameRating extends React.Component {
                     this.getRating()
                 }
             })
-            .catch(function (error) {
-                console.log(error)
-            })
-            console.log(this.state.posts)
+            .catch(error => window.alert(error))
+            // console.log(this.state.posts)
             this.setState({rating: ''})
     }
 
 
      handleNewRating () {
-        console.log("handleNewRating")
+        // console.log("handleNewRating")
         axios
             .post(
             GAMES_URL + this.props.gameId + '/ratings',
@@ -78,7 +77,7 @@ export class GameRating extends React.Component {
             )
             .then(response => {
             if (response.status === 201) {
-                console.log("Added new rating")
+                // console.log("Added new rating")
                 this.getRating()
             }})
             this.setState({rating: ''})
@@ -87,15 +86,24 @@ export class GameRating extends React.Component {
     render() {
         return (
             <>
-                <h5 hidden={this.state.avg_rating === 0}>
-                    This game's current rating average is {+this.state.avg_rating.toFixed(2)}</h5>
-                <h5 hidden={this.state.avg_rating !== 0}>
-                    This game hasn't been rated yet</h5>
+                { this.state.avg_rating !== 0 &&
+                <h5>
+                    This game's current rating average is {+this.state.avg_rating.toFixed(2)}
+                </h5> }
+                { this.state.avg_rating !== 0 &&
+                <h5>
+                    This game hasn't been rated yet
+                </h5> }
 
-                <h6 hidden={this.state.user_rating_score === 0}>
-                    Your current rating of this game is: {this.state.user_rating_score}</h6>
-                <h6 hidden={this.state.user_rating_score !== 0}>
-                    Your haven't rated this game yet</h6>
+                { this.state.user_rating_score === 0 &&
+                <h6>
+                    Your current rating of this game is: {this.state.user_rating_score}
+                </h6> }
+                 { this.state.user_rating_score === 0 &&
+                <h6>
+                    Your haven't rated this game yet
+                </h6> }
+
                 <Button variant={'info'}
                         size={'sm'}
                         style={{width: '120px', height: '28px'}}

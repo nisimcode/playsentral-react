@@ -38,7 +38,7 @@ export default function SignUp () {
                 navigate('/')
             }
         } catch(err) {
-            console.error(err)
+            // console.error(err)
             window.alert(err)
             }
     }

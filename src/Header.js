@@ -18,22 +18,22 @@ export default function Header() {
           axios.get(CURRENT_USER_URL, getToken())
           .then(response => {
             if (response.status === 200) {
-                console.log("got response for user " + response.data.username)
+                // console.log("got response for user " + response.data.username)
                 localStorage.setItem('username', response.data.username)
                 localStorage.setItem('userId', response.data.userId)
                 setLoggedIn(true)
                 setUsername(response.data.username)
             } else if (response.status === 401) {
-              console.error('401: Unauthorized')
+              window.alert('401: Unauthorized')
             }
           })
           .catch(error => {
             if (error.response.status === 401) {
-              console.error("You need to login")
+              window.alert("You need to login")
             }
           })
         } else {
-          console.error("You need to login")
+          window.alert("You need to login")
         }
       }, []
     )
@@ -47,38 +47,38 @@ export default function Header() {
   }
         return(
             <>
-            <Navbar>
-              <Navbar.Brand href="/">PlaySentral</Navbar.Brand>
-              <Navbar.Toggle />
-              <Nav.Link href="/games">Games</Nav.Link>
-              <Nav.Link href="/jokes">Jokes</Nav.Link>
-              <Navbar.Collapse className="justify-content-end">
-              { loggedIn &&
-                <Navbar.Text style={{fontSize:"20px"}}>
-                    Hello, {username}
-                    &emsp;
-                     <Button
-                         data-tip="Leaving so soon?"
-                         variant="outline-secondary"
-                         size='sm'
-                         onClick={handleSignOut}>
-                         Sign out
-                     </Button>
-                    <ReactTooltip place={"bottom"} type={"error"} multiline={true}/>
-                </Navbar.Text> }
-              { !loggedIn &&
-                <Navbar.Text>
-                    <Button
-                        variant="outline-primary"
-                        size='sm'
-                        onClick={() => {window.localStorage.setItem("sender", window.location.href);
-                                        window.location.href='/signin';
-                                        }}>
-                        Sign in
-                    </Button>
-                </Navbar.Text> }
-              </Navbar.Collapse>
-            </Navbar>
+                <Navbar>
+                  <Navbar.Brand href="/">PlaySentral</Navbar.Brand>
+                  <Navbar.Toggle />
+                  <Nav.Link href="/games">Games</Nav.Link>
+                  <Nav.Link href="/jokes">Jokes</Nav.Link>
+                  <Navbar.Collapse className="justify-content-end">
+                  { loggedIn &&
+                    <Navbar.Text style={{fontSize:"20px"}}>
+                        Hello, {username}
+                        &emsp;
+                         <Button
+                             data-tip="Leaving so soon?"
+                             variant="outline-secondary"
+                             size='sm'
+                             onClick={handleSignOut}>
+                             Sign out
+                         </Button>
+                        <ReactTooltip place={"bottom"} type={"error"} multiline={true}/>
+                    </Navbar.Text> }
+                  { !loggedIn &&
+                    <Navbar.Text>
+                        <Button
+                            variant="outline-primary"
+                            size='sm'
+                            onClick={() => {window.localStorage.setItem("sender", window.location.href);
+                                            window.location.href='/signin';
+                                            }}>
+                            Sign in
+                        </Button>
+                    </Navbar.Text> }
+                  </Navbar.Collapse>
+                </Navbar>
             </>
         )
 }
