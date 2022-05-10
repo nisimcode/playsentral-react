@@ -23,13 +23,11 @@ export class GameRating extends React.Component {
         .get(GAMES_URL + this.props.gameId + '/ratings', getToken())
         .then(response => {
             // console.log(response)
-            if (response.status === 200) {
-                this.setState({
-                    avg_rating: response.data.avg_rating,
-                    user_rating_score: response.data.user_rating_score,
-                    user_rating_id: response.data.user_rating_id
+            this.setState({
+                avg_rating: response.data.avg_rating,
+                user_rating_score: response.data.user_rating_score,
+                user_rating_id: response.data.user_rating_id
                 })
-            }
             }
         )
         .catch(error => window.alert(error))

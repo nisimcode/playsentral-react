@@ -10,7 +10,7 @@ import GamesList from "./GamesList";
 import {WrappedGame} from "./Game";
 import SignUp from "./SignUp";
 import Jokes from "./Jokes";
-import {PostComments} from "./PostComments";
+// import {PostComments} from "./PostComments";
 
 
 export default function App () {
@@ -23,9 +23,10 @@ export default function App () {
                 <Route path="/games" element={<GamesList/>} />
                 <Route path="/games/:gameId" element={<WrappedGame/>} />
                 <Route path="/jokes" element={<Jokes/>} />
-                <Route path="/games/:gameId/posts/:postId" element={<PostComments/>} />
             </Routes>
         </Container>
     )
 }
+
+// <Route path="/games/:gameId/posts/:postId" element={<PostComments/>} />
 

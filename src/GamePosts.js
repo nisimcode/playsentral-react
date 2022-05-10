@@ -5,7 +5,7 @@ import {GAMES_URL, getToken, POSTS_URL, RESPONSES_URL} from "./request_utils";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import {PostComments} from "./PostComments";
+// import {PostComments} from "./PostComments";
 
 export class GamePosts extends React.Component {
    constructor(props) {
@@ -246,11 +246,11 @@ export class GamePosts extends React.Component {
                 </Modal.Footer>
             </Modal>
             </div>
-              {this.state.showComments &&
-                <div style={{marginTop: -533, marginLeft: 970}}>
-                    <PostComments  postId={this.state.currPostId}/>
-                </div>
-                }
+              {/*{this.state.showComments &&*/}
+              {/*  <div style={{marginTop: -533, marginLeft: 970}}>*/}
+              {/*      <PostComments  postId={this.state.currPostId}/>*/}
+              {/*  </div>*/}
+              {/*  }*/}
                 </>
         );
     }

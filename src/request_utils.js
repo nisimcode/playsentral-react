@@ -8,10 +8,10 @@ export const TOKEN_URL = `${BASE_DJANGO_URL}/token/`
 export const POSTS_URL = `${BASE_DJANGO_URL}/posts/`
 export const RATINGS_URL = `${BASE_DJANGO_URL}/ratings/`
 export const RESPONSES_URL = `${BASE_DJANGO_URL}/responses/`
-export const COMMENTS_URL = `${BASE_DJANGO_URL}/comments/`
 export const CURRENT_USER_URL = `${BASE_DJANGO_URL}/users/current`
 export const SIGNUP_URL = `${BASE_DJANGO_URL}/signup/`
 export const JOKES_URL = `${BASE_FLASK_URL}/jokes`
+// export const COMMENTS_URL = `${BASE_DJANGO_URL}/comments/`
 
 export function getToken() {
     const token = window.localStorage.getItem('token')
