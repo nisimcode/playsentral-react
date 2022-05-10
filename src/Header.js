@@ -27,15 +27,7 @@ export default function Header() {
               window.alert('401: Unauthorized')
             }
           })
-          .catch(error => {
-            if (error.response.status === 401) {
-              window.alert("You need to login")
-            }
-          })
-        } else {
-          window.alert("You need to login")
-        }
-      }, []
+      }}, []
     )
 
     const handleSignOut = (event) => {
