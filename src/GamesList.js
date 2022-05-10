@@ -73,7 +73,6 @@ export class GamesList extends React.Component {
         }
     }
 
-
     render() {
 
         return(
@@ -88,19 +87,20 @@ export class GamesList extends React.Component {
                             onClick={() => this.getGames()}>
                         Search
                     </Button>
-                    <div >
-                    <Button variant={this.state.sortInput !== 'desc' ? "dark" : "outline-dark"}
+                </Form>
+                    <div>
+                        <Button variant={this.state.sortInput !== 'desc' ? "dark" : "outline-dark"}
                             style={{marginLeft: 10, marginBottom: 5, width: 120, height: 28, fontSize: 12}}
                             onClick={() => this.setState({sortInput: 'asc'})}>
-                        Ascending
-                    </Button>
-                    <Button variant={this.state.sortInput === 'desc' ? "dark" : "outline-dark"}
+                            Ascending
+                        </Button>
+                        <Button variant={this.state.sortInput === 'desc' ? "dark" : "outline-dark"}
                             style={{marginLeft: 10, width: 120, height: 28, fontSize: 12}}
                             onClick={() => this.setState({sortInput: 'desc'})}>
-                        Descending
-                    </Button>
+                            Descending
+                        </Button>
                     </div>
-                </Form>
+
                 <InfiniteScroll
                 pageStart={1}
                 loadMore={() => this.getGames()}
