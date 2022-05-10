@@ -14,11 +14,13 @@ export default class GamesList extends React.Component {
             games: [],
             hasNext: true,
             searchInput: '',
+            sortInput: ''
         }
 
         this.source = axios.CancelToken.source()
         this.nextUrl = GAMES_URL
     }
+
 
     getGames() {
         if (this.state.searchInput) {
@@ -29,7 +31,7 @@ export default class GamesList extends React.Component {
         axios
         .get(this.nextUrl, {
             cancelToken: this.source.token,
-            params: { searchValue: this.state.searchInput}
+            params: this.getParams()
         })
         .then(response => {
             // console.log(response)
@@ -44,7 +46,7 @@ export default class GamesList extends React.Component {
         .catch(error =>
             {window.alert(error)})
         }
-    //
+
     renderGames () {
         // console.log('inside renderGames')
          let gameData = this.state.games.map(
@@ -57,6 +59,18 @@ export default class GamesList extends React.Component {
 
     componentWillUnmount() {
         this.source.cancel("Request cancelled")
+    }
+
+    getParams() {
+        if (this.state.searchInput !== "" && this.state.sortInput !== "") {
+            return {searchValue: this.state.searchInput, sortValue: this.state.sortInput}
+        } else if (this.state.searchInput !== "" && this.state.sortInput === "") {
+            return {searchValue: this.state.searchInput}
+        } else if (this.state.searchInput === "" && this.state.sortInput !== "") {
+            return {sortValue: this.state.sortInput}
+        } else {
+            return {}
+        }
     }
 
 
@@ -74,7 +88,18 @@ export default class GamesList extends React.Component {
                             onClick={() => this.getGames()}>
                         Search
                     </Button>
-
+                    <div >
+                    <Button variant={this.state.sortInput !== 'desc' ? "dark" : "outline-dark"}
+                            style={{marginLeft: 10, marginBottom: 5, width: 120, height: 28, fontSize: 12}}
+                            onClick={() => this.setState({sortInput: 'asc'})}>
+                        Ascending
+                    </Button>
+                    <Button variant={this.state.sortInput === 'desc' ? "dark" : "outline-dark"}
+                            style={{marginLeft: 10, width: 120, height: 28, fontSize: 12}}
+                            onClick={() => this.setState({sortInput: 'desc'})}>
+                        Descending
+                    </Button>
+                    </div>
                 </Form>
                 <InfiniteScroll
                 pageStart={1}
