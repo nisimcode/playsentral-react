@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React from 'react';
-import Header from './Header-cls';
+import Header from './Header';
 import {GAMES_URL} from './request_utils';
 import InfiniteScroll from 'react-infinite-scroller';
 import GameCard from "./GameCard";
 import {Button, Form, FormControl} from "react-bootstrap";
 
-export class GamesList extends React.Component {
+export default class GamesList extends React.Component {
 
     constructor(props) {
         super(props)
@@ -87,7 +87,6 @@ export class GamesList extends React.Component {
                             onClick={() => this.getGames()}>
                         Search
                     </Button>
-                </Form>
                     <div>
                         <Button variant={this.state.sortInput !== 'desc' ? "dark" : "outline-dark"}
                             style={{marginLeft: 10, marginBottom: 5, width: 120, height: 28, fontSize: 12}}
@@ -100,7 +99,7 @@ export class GamesList extends React.Component {
                             Descending
                         </Button>
                     </div>
-
+                </Form>
                 <InfiniteScroll
                 pageStart={1}
                 loadMore={() => this.getGames()}
