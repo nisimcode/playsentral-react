@@ -6,7 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import GameCard from "./GameCard";
 import {Button, Form, FormControl} from "react-bootstrap";
 
-export default class GamesList extends React.Component {
+export class GamesList extends React.Component {
 
     constructor(props) {
         super(props)
@@ -110,7 +110,6 @@ export default class GamesList extends React.Component {
                     {this.state.gameData}
                 </div>
                 </InfiniteScroll>
-
             </>
         )
     }

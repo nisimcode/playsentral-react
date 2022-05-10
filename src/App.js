@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import {Container} from "react-bootstrap";
 import {WrappedSignIn} from './SignIn';
 import Welcome from "./Welcome";
-import GamesList from "./GamesList";
+import {GamesList} from "./GamesList";
 import {WrappedGame} from "./Game";
 import SignUp from "./SignUp";
 import Jokes from "./Jokes";
