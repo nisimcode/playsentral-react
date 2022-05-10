@@ -11,7 +11,6 @@ export const RESPONSES_URL = `${BASE_DJANGO_URL}/responses/`
 export const CURRENT_USER_URL = `${BASE_DJANGO_URL}/users/current`
 export const SIGNUP_URL = `${BASE_DJANGO_URL}/signup/`
 export const JOKES_URL = `${BASE_FLASK_URL}/jokes`
-// export const COMMENTS_URL = `${BASE_DJANGO_URL}/comments/`
 
 export function getToken() {
     const token = window.localStorage.getItem('token')

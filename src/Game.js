@@ -40,7 +40,7 @@ export class Game extends React.Component {
             <div style={{display: "flex", flexWrap: 'wrap'}}>
                 <div style={{display: "flex", flexWrap: 'wrap', flexDirection: "column"}}>
                 <GameDetails game={this.state.game}/>
-                    <br/>
+                    <br/><br/>
                 <GameRating gameId={this.props.gameId}/>
                 </div>
             <GamePosts gameId={this.props.gameId}/>

@@ -43,9 +43,9 @@ export class GamePosts extends React.Component {
             })
     }
 
-    callComments () {
-        this.setState({showComments: true, enableComments: true})
-    }
+    // callComments () {
+    //     this.setState({showComments: true, enableComments: true})
+    // }
 
     renderPosts(post) {
        return (
@@ -74,7 +74,6 @@ export class GamePosts extends React.Component {
                         onClick={() => this.handleResponse(post.post_id, 'dislike')}>
                         👎 ({post.dislikes})
                     </Button>
-                   &emsp;
                     {/*<Button*/}
                     {/*    variant={this.state.showComments && this.state.currPostId === post.post_id*/}
                     {/*        ? 'primary' : 'outline-primary'}*/}
@@ -166,7 +165,6 @@ export class GamePosts extends React.Component {
             })
             console.log(this.state.posts)
     }
-
 
     handleResponse (postId, response) {
         console.log("called handleResponse ")

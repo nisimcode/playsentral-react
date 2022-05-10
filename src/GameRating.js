@@ -108,7 +108,8 @@ export class GameRating extends React.Component {
                         onClick={() => this.setState({showBar: !this.state.showBar})}>
                     {this.state.user_rating_score !== 0 ? 'Change rating' : 'Rate this game'}
                 </Button>
-                <Form hidden={!this.state.showBar}>
+                { this.state.showBar &&
+                <Form>
                     <Form.Group as={Row}>
                         <Col xs="3">
                             <RangeSlider
@@ -117,16 +118,16 @@ export class GameRating extends React.Component {
                             max={10}
                             tooltip={'off'}
                             onChange={(event) => this.setState({rating: event.target.value})}
-                    />
+                            />
                         </Col>
                         <Col  xs='2'>
                             <Form.Control
-                                onChange={undefined}
+                                onChange={() => {}}
                                 style={{height: '20px'}}
                                 value={this.state.rating}/>
                         </Col>
                     </Form.Group>
-                </Form>
+                </Form> }
                    <Button variant={'outline-primary'}
                         hidden={!this.state.showBar}
                         size={'sm'}
