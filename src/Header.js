@@ -17,14 +17,12 @@ export default function Header() {
         if (token) {
           axios.get(CURRENT_USER_URL, getToken())
           .then(response => {
-            if (response.status === 200) {
+            if (response.statusText === 'OK') {
                 // console.log("got response for user " + response.data.username)
                 localStorage.setItem('username', response.data.username)
                 localStorage.setItem('userId', response.data.userId)
                 setLoggedIn(true)
                 setUsername(response.data.username)
-            } else if (response.status === 401) {
-              window.alert('401: Unauthorized')
             }
           })
       }}, []
