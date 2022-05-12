@@ -2,16 +2,20 @@ import React, {useState} from 'react';
 import Form from "react-bootstrap/Form";
 import {Button} from "react-bootstrap";
 import axios from "axios";
-import {GAMES_URL, getToken, JOKES_URL, NOTES_URL} from "./request_utils";
+import {NOTES_URL} from "./request_utils";
+import Header from "./Header";
 
 export default function Notes() {
 
     const [info, setInfo] = useState([])
     const [text, setText] = useState([])
 
+
     const handleNote = async () => {
         try {
-            const response = await axios.post(NOTES_URL, {info: info, text: text})
+            const response = await axios
+                .post(NOTES_URL, {info: info, text: text, user: localStorage.getItem('userId')})
+            console.log(response)
             if (response.status === 201) {
                 window.history.back()
             } else {
@@ -24,6 +28,7 @@ export default function Notes() {
 
     return (
         <>
+            <Header />
             <Form style={{width: '30%', margin: "auto"}}>
                 <Form.Group className="mb-3" controlId="formInfo">
                     <Form.Label>Contact Info</Form.Label>
