@@ -10,6 +10,7 @@ export const RATINGS_URL = `${BASE_DJANGO_URL}/ratings/`
 export const RESPONSES_URL = `${BASE_DJANGO_URL}/responses/`
 export const CURRENT_USER_URL = `${BASE_DJANGO_URL}/users/current`
 export const SIGNUP_URL = `${BASE_DJANGO_URL}/signup/`
+export const NOTES_URL = `${BASE_DJANGO_URL}/notes/`
 export const JOKES_URL = `${BASE_FLASK_URL}/jokes`
 
 export function getToken() {
