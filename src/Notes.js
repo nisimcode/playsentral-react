@@ -32,14 +32,14 @@ export default function Notes() {
             <Form style={{width: '30%', margin: "auto"}}>
                 <Form.Group className="mb-3" controlId="formInfo">
                     <Form.Label>Contact Info</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your contact info"
+                    <Form.Control as="textarea" rows={3} placeholder="Enter your contact info"
                     value={info}
                     onChange={ (event) => setInfo(event.target.value) }/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formText">
                     <Form.Label>Message</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your message here"
+                    <Form.Control as="textarea" rows={3} placeholder="Enter your message here"
                     value={text}
                     onChange={ (event) => setText(event.target.value) }/>
                 </Form.Group>
