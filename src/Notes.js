@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import Form from "react-bootstrap/Form";
 import {Button} from "react-bootstrap";
 import axios from "axios";
@@ -9,12 +9,14 @@ export default function Notes() {
 
     const [info, setInfo] = useState([])
     const [text, setText] = useState([])
+    const userId = localStorage.getItem('userId')
+    const username = localStorage.getItem('username')
 
 
     const handleNote = async () => {
         try {
             const response = await axios
-                .post(NOTES_URL, {info: info, text: text, user: localStorage.getItem('userId')})
+                .post(NOTES_URL, {text: text, info: getInfo(), user: getUser()})
             console.log(response)
             if (response.status === 201) {
                 window.history.back()
@@ -26,16 +28,39 @@ export default function Notes() {
         }
     }
 
+    const getInfo = () => {
+        if (info.length) {
+            return info
+        }
+        return ""
+    }
+
+    const getUser = () => {
+        if (userId) {
+            return userId
+        }
+        return ""
+    }
+
     return (
         <>
             <Header />
             <Form style={{width: '30%', margin: "auto"}}>
+                { !username &&
                 <Form.Group className="mb-3" controlId="formInfo">
                     <Form.Label>Contact Info</Form.Label>
                     <Form.Control as="textarea" rows={3} placeholder="Enter your contact info"
                     value={info}
                     onChange={ (event) => setInfo(event.target.value) }/>
-                </Form.Group>
+                </Form.Group> }
+
+                { username &&
+                <Form.Group className="mb-3" controlId="formInfo">
+                    <Form.Label>Contact Info</Form.Label>
+                    <Form.Control as="textarea" rows={3} placeholder={username}
+                    value={info}
+                    onChange={ (event) => setInfo(event.target.value) }/>
+                </Form.Group> }
 
                 <Form.Group className="mb-3" controlId="formText">
                     <Form.Label>Message</Form.Label>

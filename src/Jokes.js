@@ -11,6 +11,7 @@ export default function Jokes() {
 
     const getJoke = async () => {
         try {
+            console.log(JOKES_URL)
             const res = await axios.get(JOKES_URL)
             setJokeData(res.data)
         } catch(err) {
