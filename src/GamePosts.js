@@ -5,7 +5,6 @@ import {GAMES_URL, getToken, POSTS_URL, RESPONSES_URL} from "./request_utils";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-// import {PostComments} from "./PostComments";
 
 export class GamePosts extends React.Component {
    constructor(props) {
@@ -16,7 +15,6 @@ export class GamePosts extends React.Component {
             response: '',
             text: '',
             showPostModal: false,
-            // showComments: false,
             currPostId: 0,
       }
    }
@@ -43,9 +41,6 @@ export class GamePosts extends React.Component {
             })
     }
 
-    // callComments () {
-    //     this.setState({showComments: true, enableComments: true})
-    // }
 
     renderPosts(post) {
        return (
@@ -74,16 +69,6 @@ export class GamePosts extends React.Component {
                         onClick={() => this.handleResponse(post.post_id, 'dislike')}>
                         👎 ({post.dislikes})
                     </Button>
-                    {/*<Button*/}
-                    {/*    variant={this.state.showComments && this.state.currPostId === post.post_id*/}
-                    {/*        ? 'primary' : 'outline-primary'}*/}
-                    {/*    size={'sm'} style={{width: '60px', height: '30px'}}*/}
-                    {/*    onMouseEnter={() => this.setState(*/}
-                    {/*        {currPostId: post.post_id, showComments: true})}*/}
-                    {/*    onMouseLeave={() => this.setState(*/}
-                    {/*        {currPostId: post.post_id, showComments: false})}>*/}
-                    {/*    ✍️*/}
-                    {/*</Button>*/}
                     &ensp;
                     <Button
                         variant={'outline-primary'} size={'sm'} style={{width: '60px', height: '30px'}}
@@ -244,12 +229,7 @@ export class GamePosts extends React.Component {
                 </Modal.Footer>
             </Modal>
             </div>
-              {/*{this.state.showComments &&*/}
-              {/*  <div style={{marginTop: -533, marginLeft: 970}}>*/}
-              {/*      <PostComments  postId={this.state.currPostId}/>*/}
-              {/*  </div>*/}
-              {/*  }*/}
-                </>
+            </>
         );
     }
 }

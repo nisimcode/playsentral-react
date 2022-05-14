@@ -1,8 +1,8 @@
-// export const BASE_DJANGO_URL = "http://127.0.0.1:8000"
-// export const BASE_FLASK_URL = "http://127.0.0.1:5000"
+export const BASE_DJANGO_URL = "http://127.0.0.1:8000"
+export const BASE_FLASK_URL = "http://127.0.0.1:5000"
 
-export const BASE_FLASK_URL = "https://playsentral-f.herokuapp.com"
-export const BASE_DJANGO_URL = "https://playsentral-d.herokuapp.com"
+// export const BASE_FLASK_URL = "https://playsentral-f.herokuapp.com"
+// export const BASE_DJANGO_URL = "https://playsentral-d.herokuapp.com"
 
 export const GAMES_URL= `${BASE_DJANGO_URL}/games/`
 export const TOKEN_URL = `${BASE_DJANGO_URL}/token/`

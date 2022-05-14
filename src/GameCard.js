@@ -1,13 +1,32 @@
 import React from 'react';
 import { Card } from "react-bootstrap";
 import Nav from 'react-bootstrap/Nav'
+import axios from "axios";
+import {GAMES_URL, getToken} from "./request_utils";
 
 export default class GameCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             displayMore: false,
+            avg_rating: 0
         }
+    }
+
+    getRating() {
+        axios
+        .get(GAMES_URL + this.props.game.id + '/ratings', getToken())
+        .then(response => {
+            this.setState({
+                avg_rating: response.data.avg_rating,
+                })
+            }
+        )
+        .catch(error => window.alert(error))
+     }
+
+     componentDidMount() {
+        this.getRating()
     }
 
     render() {
@@ -19,7 +38,13 @@ export default class GameCard extends React.Component {
                             cursor: 'pointer', marginLeft: 65, marginTop: 10}}
                     onClick={() => window.location.href = `games/${this.props.game.id}`}/>
                 <Card.Body>
-                    <Card.Title style={{textAlign: 'center'}}>{this.props.game.name}</Card.Title>
+                    <Card.Title style={{textAlign: 'center'}}>
+                        {this.props.game.name}
+                        &ensp;
+                        <h6 style={{display: 'inline'}}>
+                            &#11088; {this.state.avg_rating ? this.state.avg_rating.toFixed(1) : "N/A"}
+                        </h6>
+                    </Card.Title>
                     <Nav.Link style={{textAlign: 'center'}}
                         hidden={this.state.displayMore || !this.props.game.description }
                         onClick={() =>

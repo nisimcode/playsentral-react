@@ -18,11 +18,9 @@ export class GameRating extends React.Component {
      }
 
      getRating() {
-        // console.log('getting game rating')
         axios
         .get(GAMES_URL + this.props.gameId + '/ratings', getToken())
         .then(response => {
-            // console.log(response)
             this.setState({
                 avg_rating: response.data.avg_rating,
                 user_rating_score: response.data.user_rating_score,

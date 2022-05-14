@@ -7,8 +7,8 @@ import Header from "./Header";
 
 export default function Notes() {
 
-    const [info, setInfo] = useState([])
-    const [text, setText] = useState([])
+    const [info, setInfo] = useState('')
+    const [text, setText] = useState('')
     const userId = localStorage.getItem('userId')
     const username = localStorage.getItem('username')
 

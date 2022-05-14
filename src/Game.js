@@ -1,59 +1,51 @@
-import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import Header from './Header';
 import {GAMES_URL, getToken} from "./request_utils";
-import Header from "./Header";
 import {GameDetails} from "./GameDetails";
 import {GamePosts} from "./GamePosts";
 import {GameRating} from "./GameRating";
+import {useParams} from "react-router-dom";
 
 
-export class Game extends React.Component {
+export default function Game() {
 
-    constructor(props) {
-      super(props)
-        this.state = {
-            game: [],
-      }
-}
+    const {gameId} = useParams()
+    const [game, setGame] = useState([])
 
-    getGame() {
-        console.log('getting game')
+    const getGame = () => {
         axios
-        .get(GAMES_URL + this.props.gameId + '/details', getToken())
-        .then(response => {
-            console.log(response)
-            if (response.status !== 200) {
-                console.log('failed getting game')
-            }
-            this.setState({game: response.data})
-        })}
-
-    componentDidMount() {
-        this.getGame()
+            .get(GAMES_URL + gameId + '/details', getToken())
+            .then(response => {
+                    if (response.status === 200) {
+                        setGame(response.data)
+                    } else {
+                        window.alert('Error! Contact us!')
+                    }
+                })
+            .catch(error => {
+                window.alert(error)
+            })
     }
 
-    render() {
-        return(
+     useEffect(() =>{
+        getGame()
+        }, []
+    )
+
+    return(
         <>
             <Header />
             <div style={{display: "flex", flexWrap: 'wrap'}}>
                 <div style={{display: "flex", flexWrap: 'wrap', flexDirection: "column"}}>
-                <GameDetails game={this.state.game}/>
+                <GameDetails game={game}/>
                     <br/><br/>
-                <GameRating gameId={this.props.gameId}/>
+                <GameRating gameId={gameId}/>
                 </div>
-            <GamePosts gameId={this.props.gameId}/>
+            <GamePosts gameId={gameId}/>
             </div>
        </>
       )
-    }
-  }
 
-export const WrappedGame = props => {
-    const {gameId} = useParams()
-    const navigate = useNavigate()
-    return <Game gameId={gameId} navigate={navigate} {...props} />
 }
-
 

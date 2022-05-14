@@ -7,11 +7,10 @@ import {Container} from "react-bootstrap";
 import {WrappedSignIn} from './SignIn';
 import Welcome from "./Welcome";
 import GamesList from "./GamesList";
-import {WrappedGame} from "./Game";
+import Game from "./Game"
 import SignUp from "./SignUp";
 import Jokes from "./Jokes";
 import Notes from "./Notes";
-// import {PostComments} from "./PostComments";
 
 
 export default function App () {
@@ -22,13 +21,10 @@ export default function App () {
                 <Route path="/signin" element={<WrappedSignIn/>} />
                 <Route path="/signup" element={<SignUp/>} />
                 <Route path="/games" element={<GamesList/>} />
-                <Route path="/games/:gameId" element={<WrappedGame/>} />
+                <Route path="/games/:gameId" element={<Game/>} />
                 <Route path="/jokes" element={<Jokes/>} />
                 <Route path="/contact_us" element={<Notes/>} />
             </Routes>
         </Container>
     )
 }
-
-// <Route path="/games/:gameId/posts/:postId" element={<PostComments/>} />
-

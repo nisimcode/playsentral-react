@@ -9,34 +9,30 @@ export default function Jokes() {
 
     const [jokeData, setJokeData] = useState([])
 
-    const getJoke = async () => {
-        try {
-            console.log(JOKES_URL)
-            const res = await axios.get(JOKES_URL)
-            setJokeData(res.data)
-        } catch(err) {
-                window.alert(err)
+    const getJoke = () => {
+        axios
+            .get(JOKES_URL)
+            .then(res => { setJokeData(res.data)})
+            .catch(err => window.alert(err))
             }
-        }
 
-    const forkJoke = () => {
+    const renderJoke = () => {
         if (jokeData.type === 'single') {
             return <SinglePartJoke joke={jokeData.joke} getJoke={getJoke}/>
         } else if (jokeData.type === 'twopart') {
             return <TwoPartJoke jokeSetup={jokeData.setup} jokeDelivery={jokeData.delivery} getJoke={getJoke}/>
+        } else {
+            return <h1>Loading...</h1>
         }
     }
 
-    useEffect(() =>{
-        getJoke().then(null)
-        }, []
-    )
+    useEffect( () =>{ getJoke() }, [] )
 
     return (
         <>
             <Header />
             <br />
-            { forkJoke() }
+            { renderJoke() }
         </>
     )
 
