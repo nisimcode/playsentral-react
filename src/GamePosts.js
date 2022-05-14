@@ -184,7 +184,7 @@ export class GamePosts extends React.Component {
 
         return (
             <>
-            <div style={{marginTop: 5, marginRight: 20}}>
+            <div style={{marginTop: 3, marginRight: 20}}>
             <h3 style={{display: 'flex'}}>Posts
                 &emsp;
                 <Button variant={'outline-primary'} size={'sm'} style={{width: 150, height: 30, marginTop: 5}}

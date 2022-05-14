@@ -16,7 +16,7 @@ export default class GameCard extends React.Component {
 
     getRating() {
         axios
-        .get(GAMES_URL + this.props.game.id + '/ratings', getToken())
+        .get(GAMES_URL + this.props.game.id + '/ratings')
         .then(response => {
             this.setState({
                 avg_rating: response.data.avg_rating,

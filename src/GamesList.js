@@ -21,7 +21,6 @@ export default class GamesList extends React.Component {
         this.nextUrl = GAMES_URL
     }
 
-
     getGames() {
         if (this.state.searchInput) {
             this.nextUrl = GAMES_URL
@@ -44,7 +43,7 @@ export default class GamesList extends React.Component {
                 this.renderGames()
             }})
         .catch(error =>
-            {window.alert(error)})
+            {window.alert('HERE' + error)})
         }
 
     renderGames () {

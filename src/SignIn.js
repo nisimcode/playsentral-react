@@ -58,7 +58,7 @@ export class SignIn extends React.Component {
                 </Button>
                 &emsp;
                 <Button variant="secondary" onClick={() => window.location.href='/signup'}>
-                    Not a member yet? Sign up here!
+                    Sign up here!
                 </Button>
             </Form>
             </>
