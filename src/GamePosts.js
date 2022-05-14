@@ -46,7 +46,7 @@ export class GamePosts extends React.Component {
        return (
            <ListGroup.Item key={post.post_id}
             as="li" className="d-flex justify-content-between align-items-start"
-                           style={{width: '400px',
+                           style={{width: '350px',
                                backgroundColor: this.state.showComments && this.state.currPostId === post.post_id
                                    ? 'lightblue' : 'white'}}>
                <div className="ms-2 me-auto"
@@ -184,7 +184,7 @@ export class GamePosts extends React.Component {
 
         return (
             <>
-            <div style={{margin: 20, marginTop: 5, width: 250}}>
+            <div style={{marginTop: 5, marginRight: 20}}>
             <h3 style={{display: 'flex'}}>Posts
                 &emsp;
                 <Button variant={'outline-primary'} size={'sm'} style={{width: 150, height: 30, marginTop: 5}}
@@ -193,7 +193,7 @@ export class GamePosts extends React.Component {
                 </Button>
             </h3>
 
-                <div style={{margin: -33}}>
+                <div style={{margin: 0}}>
                     {postData}
                 </div>
 

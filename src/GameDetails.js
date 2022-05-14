@@ -11,7 +11,7 @@ export class GameDetails extends React.Component {
                     <h2 style={{fontStyle: 'italic'}}>{this.props.game.name}</h2>
                     <img src={this.props.game.picture_url} alt={this.props.game.name + ' image'} height={380} />
                 </div>
-                <div style={{margin: 20, marginTop: 5, width: '250px', maxHeight: '400px'}}>
+                <div style={{margin: 20, marginTop: 5, width: 200, maxHeight: 400}}>
                     <h3>Details</h3>
                     <ListGroup as="ul" >
                         <ListGroup.Item

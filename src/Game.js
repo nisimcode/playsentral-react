@@ -36,14 +36,21 @@ export default function Game() {
     return(
         <>
             <Header />
-            <div style={{display: "flex", flexWrap: 'wrap'}}>
-                <div style={{display: "flex", flexWrap: 'wrap', flexDirection: "column"}}>
+            <div style={{display: "flex", flexWrap: 'wrap', flexDirection: 'row'}}>
+            <div style={{display: "flex", flexWrap: 'wrap', flexDirection: 'column'}}>
+            <div >
                 <GameDetails game={game}/>
-                    <br/><br/>
-                <GameRating gameId={gameId}/>
-                </div>
-            <GamePosts gameId={gameId}/>
             </div>
+            <div >
+                <GameRating gameId={gameId}/>
+            </div>
+            </div>
+            <div >
+                <GamePosts gameId={gameId}/>
+            </div>
+
+
+            </div >
        </>
       )
 

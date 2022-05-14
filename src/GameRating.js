@@ -81,23 +81,23 @@ export class GameRating extends React.Component {
 
     render() {
         return (
-            <>
+            <div style={{marginTop: 10}}>
                 { this.state.avg_rating !== 0 &&
                 <h5>
-                    This game's current rating average is {+this.state.avg_rating.toFixed(2)}
+                    Rating average: {+this.state.avg_rating.toFixed(2)}
                 </h5> }
                 { this.state.avg_rating === 0 &&
                 <h5>
-                    This game hasn't been rated yet
+                    No ratings yet
                 </h5> }
 
                 { this.state.user_rating_score !== 0 &&
                 <h6>
-                    Your current rating of this game is: {this.state.user_rating_score}
+                    Your current rating: {this.state.user_rating_score}
                 </h6> }
                  { this.state.user_rating_score === 0 &&
                 <h6>
-                    Your haven't rated this game yet
+                    Your haven't rated this game
                 </h6> }
 
                 <Button variant={'info'}
@@ -133,7 +133,7 @@ export class GameRating extends React.Component {
                         onClick={() => {this.handleRatingSave(); this.setState({showBar: !this.state.showBar})}}>
                     Submit
                     </Button>
-            </>
+            </div>
         )
     }
 }
