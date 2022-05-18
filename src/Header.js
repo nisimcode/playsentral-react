@@ -43,6 +43,7 @@ export default function Header() {
                   <Navbar.Toggle />
                   <Nav.Link href="/games">Games</Nav.Link>
                   <Nav.Link href="/jokes">Jokes</Nav.Link>
+                  <Nav.Link href="/numtastic">Numtastic</Nav.Link>
                   <Nav.Link href="/contact_us">Contact us</Nav.Link>
                   <Navbar.Collapse className="justify-content-end">
                   { loggedIn &&

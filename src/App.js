@@ -11,6 +11,7 @@ import Game from "./Game"
 import SignUp from "./SignUp";
 import Jokes from "./Jokes";
 import Notes from "./Notes";
+import Numtastic from "./Numtastic";
 
 
 export default function App () {
@@ -23,6 +24,7 @@ export default function App () {
                 <Route path="/games" element={<GamesList/>} />
                 <Route path="/games/:gameId" element={<Game/>} />
                 <Route path="/jokes" element={<Jokes/>} />
+                <Route path="/numtastic" element={<Numtastic/>} />
                 <Route path="/contact_us" element={<Notes/>} />
             </Routes>
         </Container>
