@@ -1,7 +1,9 @@
 import Form from 'react-bootstrap/Form'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Container from "react-bootstrap/Container";
 import Button from 'react-bootstrap/Button'
+import axios from "axios";
+import {NUMTASTIC_URL} from "./request_utils";
 
 
 export default function Numtastic() {
@@ -9,12 +11,36 @@ export default function Numtastic() {
   const [top, setTop] = useState("")
   const [guess, setGuess] = useState("")
   const [bottom, setBottom] = useState("")
-  const [target] = useState(73)
+  const [target, setTarget] = useState(0)
+  const [min, setMin] = useState(0)
+  const [max, setMax] = useState(0)
   const [count, setCount] = useState(0)
   const [win, setWin] = useState(false)
 
+  const getTarget = () => {
+        axios
+            .get(NUMTASTIC_URL)
+            .then(res => {
+              console.log(res)
+              setTarget(res.data.target)
+              setMin(res.data.min)
+              setMax(res.data.max)
+            })
+            .catch(err => window.alert(err))
+            }
+
+  const handleRestart = () => {
+    setTop("")
+    setBottom("")
+    setGuess("")
+  }
+
   const handleClick = () => {
-    setCount(count + 1)
+    if (guess < min || guess > max) {
+      window.alert("Choose a number between 1 and 100!")
+      setGuess("")
+    } else {
+      setCount(count + 1)
       if (guess > target) {
         if (top === "" || guess < top) {
           setTop(guess)
@@ -23,17 +49,21 @@ export default function Numtastic() {
           setGuess("")
         }
       } else if (guess < target) {
-          if (bottom === "" || guess > bottom) {
-            setBottom(guess)
-            setGuess("")
-          } else if (guess < bottom) {
-            setGuess("")
-          }
-        } else {
+        if (bottom === "" || guess > bottom) {
+          setBottom(guess)
+          setGuess("")
+        } else if (guess < bottom) {
+          setGuess("")
+        }
+      } else {
         setWin(true)
-
+      }
     }
   }
+
+  useEffect(() => {
+    getTarget()
+  }, [])
 
   return (
     <Container style={{position: "absolute", left: "45%", top: "10%",}}>
@@ -64,19 +94,26 @@ export default function Numtastic() {
           onChange={(event) => setBottom(event.target.value)}/>
       </Form>
       <br/>
-      <Button variant='primary' disabled={win}
-              style={{width: 100, height: 50, textAlign: "center", fontSize: 32}} onClick={handleClick}>
-        { win ? "WIN!!!" : "TRY!" }
+      <Button variant='primary'
+              disabled={win}
+              style={{width: 100, height: 60, textAlign: "center", fontSize: 28}}
+              onClick={handleClick}>
+        { win ? "WIN!" : "GO" }
       </Button>
       <br/> <br/>
       <Form >
         <Form.Control
           disabled
-          style={{width: 100, height: 25, textAlign: "center", fontSize: 36}}
+          style={{width: 100, height: 40, textAlign: "center", fontSize: 24}}
           type="number" placeholder="0"
           value={count} aria-required={'true'}
           onChange={(event) => setCount(event.target.value)}/>
       </Form>
+       <Button variant='outline-primary'
+              style={{width: 100, height: 60, textAlign: "center", fontSize: 28}}
+              onClick={getIni}>
+        RESTART
+      </Button>
 
     </Container>
   )
